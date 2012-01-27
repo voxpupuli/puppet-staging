@@ -28,7 +28,7 @@ define staging::extract (
   # Use user supplied creates path, set default if creates, unless or onlyif is not supplied.
   if $creates {
     $creates_path = $creates
-  } else ! ($unless or $onlyif) {
+  } elsif ! ($unless or $onlyif) {
     $creates_path = "${target}/${name}"
   }
 
