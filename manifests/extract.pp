@@ -12,7 +12,7 @@
 define staging::extract (
   $target,
   $source  = undef,
-  $creates = 'UNSET',
+  $creates = undef,
   $unless  = undef,
   $onlyif  = undef,
   $user    = undef,
@@ -25,9 +25,10 @@ define staging::extract (
     $source_path = "${staging::path}/${caller_module_name}/${name}"
   }
 
-  if $creates != 'UNSET' {
+  # Use user supplied creates path, set default if creates, unless or onlyif is not supplied.
+  if $creates {
     $creates_path = $creates
-  } else {
+  } else ! ($unless or $onlyif) {
     $creates_path = "${target}/${name}"
   }
 
