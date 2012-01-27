@@ -64,6 +64,9 @@ define staging::extract (
         creates => $creates_path,
       }
     }
+    default: {
+      fail("staging::extract: unsupported file format ${name}.")
+    }
   }
 
 }

@@ -31,8 +31,8 @@ define staging::file (
   case $source {
     /^\//: {
       file { $file_path:
-        source => $source,
-        replace  => false,
+        source  => $source,
+        replace => false,
       }
     }
     /^puppet:\/\//: {
