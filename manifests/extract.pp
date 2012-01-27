@@ -34,7 +34,7 @@ define staging::extract (
   case $name {
     /.tar$/: {
       exec { "extract ${name}":
-        command => "tar xf ${name}",
+        command => "tar xf ${source_path}",
         path    => '/usr/bin:/bin',
         cwd     => $target,
         creates => $creates_path,
@@ -42,7 +42,7 @@ define staging::extract (
     }
     /.tar.gz$/: {
       exec { "extract ${name}":
-        command => "tar xzf ${name}",
+        command => "tar xzf ${source_path}",
         path    => '/usr/bin:/bin',
         cwd     => $target,
         creates => $creates_path,
@@ -50,7 +50,7 @@ define staging::extract (
     }
     /.zip$/: {
       exec { "extract ${name}":
-        command => "zip x ${name}",
+        command => "zip x ${source_path}",
         path    => '/usr/bin:/bin',
         cwd     => $target,
         creates => $creates_path,
@@ -58,7 +58,7 @@ define staging::extract (
     }
     /.war$/: {
       exec { "extract ${name}":
-        command => "jar x ${name}",
+        command => "jar x ${source_path}",
         path    => '/usr/bin:/bin',
         cwd     => $target,
         creates => $creates_path,
