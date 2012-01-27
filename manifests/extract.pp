@@ -7,11 +7,14 @@
 #   * target: the target extraction directory,
 #   * source: the source compression file, supports tar, tar.gz, zip, war. if unspecified defaults to ${staging::path}/${caller_module_name}/${name}
 #   * creates: the file created after extraction. if unspecified defaults to ${target}/${name}.
+#   * username: extract the compressed file under this user account.
 #
 define staging::extract (
   $target,
-  $source = undef,
-  $creates = undef
+  $source  = undef,
+  $creates = undef,
+  $user    = undef,
+  $group   = undef,
 ) {
   include staging
 
@@ -27,41 +30,49 @@ define staging::extract (
     $creates_path = "${target}/${name}"
   }
 
-  Exec {
-    logoutput => on_failure,
-  }
-
   case $name {
     /.tar$/: {
       exec { "extract ${name}":
-        command => "tar xf ${source_path}",
-        path    => '/usr/bin:/bin',
-        cwd     => $target,
-        creates => $creates_path,
+        command   => "tar xf ${source_path}",
+        path      => '/usr/bin:/bin',
+        cwd       => $target,
+        user      => $user,
+        group     => $group,
+        creates   => $creates_path,
+        logoutput => on_failure,
       }
     }
     /.tar.gz$/: {
       exec { "extract ${name}":
-        command => "tar xzf ${source_path}",
-        path    => '/usr/bin:/bin',
-        cwd     => $target,
-        creates => $creates_path,
+        command   => "tar xzf ${source_path}",
+        path      => '/usr/bin:/bin',
+        cwd       => $target,
+        user      => $user,
+        group     => $group,
+        creates   => $creates_path,
+        logoutput => on_failure,
       }
     }
     /.zip$/: {
       exec { "extract ${name}":
-        command => "unzip ${source_path}",
-        path    => '/usr/bin:/bin',
-        cwd     => $target,
-        creates => $creates_path,
+        command   => "unzip ${source_path}",
+        path      => '/usr/bin:/bin',
+        cwd       => $target,
+        user      => $user,
+        group     => $group,
+        creates   => $creates_path,
+        logoutput => on_failure,
       }
     }
     /.war$/: {
       exec { "extract ${name}":
-        command => "jar xf ${source_path}",
-        path    => '/usr/bin:/bin',
-        cwd     => $target,
-        creates => $creates_path,
+        command   => "${quote}jar xf ${source_path}",
+        path      => '/usr/bin:/bin',
+        cwd       => $target,
+        user      => $user,
+        group     => $group,
+        creates   => $creates_path,
+        logoutput => on_failure,
       }
     }
     default: {
