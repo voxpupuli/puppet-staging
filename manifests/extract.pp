@@ -12,11 +12,12 @@
 define staging::extract (
   $target,
   $source  = undef,
-  $creates = undef,
+  $creates = 'UNSET',
+  $unless  = undef,
+  $onlyif  = undef,
   $user    = undef,
   $group   = undef,
 ) {
-  include staging
 
   if $source {
     $source_path = $source
@@ -24,55 +25,42 @@ define staging::extract (
     $source_path = "${staging::path}/${caller_module_name}/${name}"
   }
 
-  if $creates {
+  if $creates != 'UNSET' {
     $creates_path = $creates
   } else {
     $creates_path = "${target}/${name}"
   }
 
+  Exec{
+    path      => '/usr/bin:/bin',
+    cwd       => $target,
+    user      => $user,
+    group     => $group,
+    creates   => $creates_path,
+    unless    => $unless,
+    onlyif    => $onlyif,
+    logoutput => on_failure,
+  }
+
   case $name {
     /.tar$/: {
       exec { "extract ${name}":
-        command   => "tar xf ${source_path}",
-        path      => '/usr/bin:/bin',
-        cwd       => $target,
-        user      => $user,
-        group     => $group,
-        creates   => $creates_path,
-        logoutput => on_failure,
+        command => "tar xf ${source_path}",
       }
     }
     /.tar.gz$/: {
       exec { "extract ${name}":
-        command   => "tar xzf ${source_path}",
-        path      => '/usr/bin:/bin',
-        cwd       => $target,
-        user      => $user,
-        group     => $group,
-        creates   => $creates_path,
-        logoutput => on_failure,
+        command => "tar xzf ${source_path}",
       }
     }
     /.zip$/: {
       exec { "extract ${name}":
-        command   => "unzip ${source_path}",
-        path      => '/usr/bin:/bin',
-        cwd       => $target,
-        user      => $user,
-        group     => $group,
-        creates   => $creates_path,
-        logoutput => on_failure,
+        command => "unzip ${source_path}",
       }
     }
     /.war$/: {
       exec { "extract ${name}":
-        command   => "${quote}jar xf ${source_path}",
-        path      => '/usr/bin:/bin',
-        cwd       => $target,
-        user      => $user,
-        group     => $group,
-        creates   => $creates_path,
-        logoutput => on_failure,
+        command => "${quote}jar xf ${source_path}",
       }
     }
     default: {
