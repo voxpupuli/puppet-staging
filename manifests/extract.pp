@@ -50,7 +50,7 @@ define staging::extract (
     }
     /.zip$/: {
       exec { "extract ${name}":
-        command => "zip x ${source_path}",
+        command => "unzip ${source_path}",
         path    => '/usr/bin:/bin',
         cwd     => $target,
         creates => $creates_path,
@@ -58,7 +58,7 @@ define staging::extract (
     }
     /.war$/: {
       exec { "extract ${name}":
-        command => "jar x ${source_path}",
+        command => "jar xf ${source_path}",
         path    => '/usr/bin:/bin',
         cwd     => $target,
         creates => $creates_path,
