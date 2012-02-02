@@ -61,7 +61,7 @@ define staging::extract (
     }
     /.war$/: {
       exec { "extract ${name}":
-        command => "${quote}jar xf ${source_path}",
+        command => "jar xf ${source_path}",
       }
     }
     default: {
