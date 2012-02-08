@@ -4,19 +4,35 @@ Puppet management of staging directory, along with retrieval/extraction of stagi
 
 ## Usage
 
-Specify a different staging path (must be declared before using resource):
+Specify a different default staging path (must be declared before using resource):
 
     class { 'staging':
-      path => '/var/staging',
+      path  => '/var/staging',
+      owner => 'puppet',
+      group => 'puppet',
     }
 
+Staging files from various sources:
+
     staging::file { 'sample':
-      source => 'http://server/sample',
+      source => 'puppet://modules/staging/sample',
+    }
+
+    staging::file { 'apache-tomcat-6.0.35':
+      source => 'http://apache.cs.utah.edu/tomcat/tomcat-6/v6.0.35/bin/apache-tomcat-6.0.35.tar.gz',
+    }
+
+
+Staging and extracting files:
+
+    staging::file { 'sample.tar.gz':
+      source => 'puppet:///modules/staging/sample.tar.gz'
     }
 
     staging::extract { 'sample.tar.gz':
-      target  => '/tmp',
-      creates => '/tmp/sample',
+      target  => '/tmp/staging',
+      creates => '/tmp/staging/sample',
+      require => Staging::File['sample.tar.gz'],
     }
 
 Staging files currently support the following source:
@@ -34,7 +50,7 @@ This module requires hiera on the puppet master (no changes to puppet agent) wit
 
     ---
     :backend: - puppet
-    
+
     :puppet:
         :datasource: data
 
