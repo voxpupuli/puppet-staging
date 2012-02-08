@@ -4,7 +4,7 @@
 #   intententionally not replacing files, as these intend to be large binaries
 #   that are versioned.
 #
-# Paremeters:
+# Parameters:
 #
 #   * source: the source file location, supports local files, puppet://, http://, https://, ftp://
 #   * target: the target staging directory, if unspecified ${staging::path}/${caller_module_name}.
@@ -27,6 +27,7 @@ define staging::file (
   $password    = undef,
   $environment = undef,
 ) {
+
   include staging
 
   if $target {
@@ -49,12 +50,14 @@ define staging::file (
         replace => false,
       }
     }
+
     /^puppet:\/\//: {
       file { $file_path:
         source  => $source,
         replace => false,
       }
     }
+
     /^http:\/\//: {
       exec { $file_path:
         command     => "curl -L -o ${name} ${source}",
@@ -64,6 +67,7 @@ define staging::file (
         creates     => "$file_path"
       }
     }
+
     /^https:\/\//: {
       if $username {
         $command = "curl -L -o ${name} -u ${username}:${password} ${source}"

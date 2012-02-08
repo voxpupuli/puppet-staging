@@ -2,12 +2,23 @@
 #
 #   Define resource to extract files from staging directories to target directories.
 #
-# Paremeters:
+# Parameters:
 #
 #   * target: the target extraction directory,
 #   * source: the source compression file, supports tar, tar.gz, zip, war. if unspecified defaults to ${staging::path}/${caller_module_name}/${name}
 #   * creates: the file created after extraction. if unspecified defaults to ${target}/${name}.
-#   * username: extract the compressed file under this user account.
+#   * unless: alternative way to conditionally check whether to extract file.
+#   * onlyif: alternative way to conditionally check whether to extract file.
+#   * user: extract file as this user.
+#   * group: extract file as this group.
+#
+# Usage:
+#
+#   staging::extract { 'apache-tomcat-6.0.35':
+#     target => '/opt',
+#     owner  => 'tomcat',
+#     group  => 'tomcat',
+#   }
 #
 define staging::extract (
   $target,
@@ -19,13 +30,15 @@ define staging::extract (
   $group   = undef,
 ) {
 
+  include staging
+
   if $source {
     $source_path = $source
   } else {
     $source_path = "${staging::path}/${caller_module_name}/${name}"
   }
 
-  # Use user supplied creates path, set default if creates, unless or onlyif is not supplied.
+  # Use user supplied creates path, set default value if creates, unless or onlyif is not supplied.
   if $creates {
     $creates_path = $creates
   } elsif ! ($unless or $onlyif) {
@@ -49,21 +62,25 @@ define staging::extract (
         command => "tar xf ${source_path}",
       }
     }
+
     /.tar.gz$/: {
       exec { "extract ${name}":
         command => "tar xzf ${source_path}",
       }
     }
+
     /.zip$/: {
       exec { "extract ${name}":
         command => "unzip ${source_path}",
       }
     }
+
     /.war$/: {
       exec { "extract ${name}":
         command => "jar xf ${source_path}",
       }
     }
+
     default: {
       fail("staging::extract: unsupported file format ${name}.")
     }
