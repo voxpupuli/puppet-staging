@@ -30,7 +30,7 @@ I'm considering support for additional protocols such as rsync and git.
 
 ## Requirement
 
-This module requires hiera support on the puppet master (no changes to puppet agent) with puppet backend and data as the datasource:
+This module requires hiera on the puppet master (no changes to puppet agent) with puppet backend and data as the datasource (default setting):
 
     ---
     :backend: - puppet
@@ -38,7 +38,7 @@ This module requires hiera support on the puppet master (no changes to puppet ag
     :puppet:
         :datasource: data
 
-If you don't have hiera in your environment the [puppetlabs-puppet module](https://github.com/puppetlabs/puppetlabs-puppet) and following manifest will implement hiera on the puppet master:
+If you don't have hiera in your environment this module [puppetlabs-puppet](https://github.com/puppetlabs/puppetlabs-puppet) along with the following manifest will implement hiera on the puppet master:
 
     class { 'puppet::hiera':
       confdir    => '/etc/puppet',
