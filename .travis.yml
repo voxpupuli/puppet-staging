@@ -5,6 +5,8 @@ rvm:
   - ree
 before_install:
   - 'git clone git://github.com/puppetlabs/hiera-puppet.git ./spec/fixture/modules/hiera-puppet'
+after_install:
+  - 'gem list'
 script: "rake spec"
 env:
   - PUPPET_VERSION=2.6.12
