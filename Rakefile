@@ -12,7 +12,9 @@ task :specs => [:spec]
 
 desc "Run all rspec-puppet tests"
 RSpec::Core::RakeTask.new(:spec) do |t|
-    t.rspec_opts = ['--color']
+  t.rspec_opts = ['--color']
+  # ignore fixtures directory.
+  t.pattern = 'spec/{classes,defines,unit}/**/*_spec.rb'
 end
 
 desc "Build puppet module package"

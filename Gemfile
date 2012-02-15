@@ -7,7 +7,6 @@ gem 'hiera', '>= 0.3.0'
 gem 'hiera-puppet', '>= 0.3.0'
 
 group :test do
-  gem 'mocha', '>= 0.10.0'
   gem 'rake', '>= 0.9.0'
   gem 'rspec', '>= 2.8.0'
   gem 'rspec-puppet', '>= 0.1.1'
