@@ -27,7 +27,7 @@ define staging::file (
   $username    = undef,
   $certificate = undef,
   $password    = undef,
-  $environment = undef,
+  $environment = undef
 ) {
 
   include staging

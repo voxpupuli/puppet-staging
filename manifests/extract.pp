@@ -28,7 +28,7 @@ define staging::extract (
   $onlyif      = undef,
   $user        = undef,
   $group       = undef,
-  $environment = undef,
+  $environment = undef
 ) {
 
   include staging
