@@ -54,7 +54,16 @@ This module requires hiera on the puppet master (no changes to puppet agent) wit
     :puppet:
         :datasource: data
 
-If you don't have hiera in your environment this module [puppetlabs-puppet](https://github.com/puppetlabs/puppetlabs-puppet) along with the following manifest will implement hiera on the puppet master:
+If you don't have hiera in your environment either module with the appropriate manifests will deploy hiera on the puppet master:
+
+* [puppet-hiera](https://github.com/nanliu/puppet-hiera)
+
+    class { 'hiera':
+      confdir    => '/etc/puppet',
+      modulepath => '/etc/puppet/modules',
+    }
+
+* [puppetlabs-puppet](https://github.com/puppetlabs/puppetlabs-puppet)
 
     class { 'puppet::hiera':
       confdir    => '/etc/puppet',
