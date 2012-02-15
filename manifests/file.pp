@@ -19,6 +19,8 @@
 #     source => 'http://apache.cs.utah.edu/tomcat/tomcat-6/v6.0.35/bin/apache-tomcat-6.0.35.tar.gz',
 #   }
 #
+#   If you specify a different staging location, please manage the file resource as necessary.
+#
 define staging::file (
   $source,
   $target      = undef,
@@ -31,40 +33,44 @@ define staging::file (
   include staging
 
   if $target {
-    $file_path = "${target}/${name}"
+    $target_file = $target
+    $staging_dir = staging_parse($target, 'parent')
   } else {
-    $staging_path = "${staging::path}/${caller_module_name}"
-    $file_path    = "${staging_path}/${name}"
+    $staging_dir = "${staging::path}/${caller_module_name}"
+    $target_file = "${staging_dir}/${name}"
 
-    if ! defined(File[$staging_path]) {
-      file { $staging_path:
+    if ! defined(File[$staging_dir]) {
+      file { $staging_dir:
         ensure=>directory,
       }
     }
   }
 
+  Exec {
+    path        => '/usr/local/bin:/usr/bin:/bin',
+    environment => $environment,
+    cwd         => $staging_dir,
+    creates     => $target_file,
+  }
+
   case $source {
     /^\//: {
-      file { $file_path:
+      file { $target_file:
         source  => $source,
         replace => false,
       }
     }
 
     /^puppet:\/\//: {
-      file { $file_path:
+      file { $target_file:
         source  => $source,
         replace => false,
       }
     }
 
     /^http:\/\//: {
-      exec { $file_path:
+      exec { $target_file:
         command     => "curl -L -o ${name} ${source}",
-        path        => '/usr/local/bin:/usr/bin:/bin',
-        environment => $environment,
-        cwd         => $staging_path,
-        creates     => "$file_path"
       }
     }
 
@@ -77,12 +83,8 @@ define staging::file (
         $command = "curl -L -o ${name} ${source}"
       }
 
-      exec { $file_path:
+      exec { $target_file:
         command     => $command,
-        path        => '/usr/local/bin:/usr/bin:/bin',
-        environment => $environment,
-        cwd         => $staging_path,
-        creates     => "$file_path"
       }
     }
 
@@ -93,12 +95,8 @@ define staging::file (
         $command = "curl -o ${name} ${source}"
       }
 
-      exec { $file_path:
+      exec { $target_file:
         command     => $command,
-        path        => '/usr/local/bin:/usr/bin:/bin',
-        environment => $environment,
-        cwd         => $staging_path,
-        creates     => "$file_path"
       }
     }
 

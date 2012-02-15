@@ -22,12 +22,13 @@
 #
 define staging::extract (
   $target,
-  $source  = undef,
-  $creates = undef,
-  $unless  = undef,
-  $onlyif  = undef,
-  $user    = undef,
-  $group   = undef,
+  $source      = undef,
+  $creates     = undef,
+  $unless      = undef,
+  $onlyif      = undef,
+  $user        = undef,
+  $group       = undef,
+  $environment = undef,
 ) {
 
   include staging
@@ -46,39 +47,36 @@ define staging::extract (
   }
 
   Exec{
-    path      => '/usr/bin:/bin',
-    cwd       => $target,
-    user      => $user,
-    group     => $group,
-    creates   => $creates_path,
-    unless    => $unless,
-    onlyif    => $onlyif,
-    logoutput => on_failure,
+    path        => '/usr/bin:/bin',
+    cwd         => $target,
+    user        => $user,
+    group       => $group,
+    environment => $environment,
+    creates     => $creates_path,
+    unless      => $unless,
+    onlyif      => $onlyif,
+    logoutput   => on_failure,
   }
 
   case $name {
     /.tar$/: {
-      exec { "extract ${name}":
-        command => "tar xf ${source_path}",
-      }
+      $command = "tar xf ${source_path}"
     }
 
-    /.tar.gz$/: {
-      exec { "extract ${name}":
-        command => "tar xzf ${source_path}",
+    /(.tgz|.tar.gz)$/: {
+      if $::osfamily == 'Solaris' {
+        $command = "gunzip -dc < ${source_path} | tar xf - "
+      } else {
+        $command = "tar xzf ${source_path}"
       }
     }
 
     /.zip$/: {
-      exec { "extract ${name}":
-        command => "unzip ${source_path}",
-      }
+      $command = "unzip ${source_path}"
     }
 
     /.war$/: {
-      exec { "extract ${name}":
-        command => "jar xf ${source_path}",
-      }
+      $command = "jar xf ${source_path}"
     }
 
     default: {
@@ -86,4 +84,7 @@ define staging::extract (
     }
   }
 
+  exec { "extract ${name}":
+    command => $command,
+  }
 }
