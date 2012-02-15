@@ -43,11 +43,17 @@ define staging::extract (
   if $creates {
     $creates_path = $creates
   } elsif ! ($unless or $onlyif) {
-    $creates_path = "${target}/${name}"
+    if $name =~ /.tar.gz$/ {
+      $folder       = staging_parse($name, 'basename', '.tar.gz')
+      $creates_path = "${target}/${folder}"
+    } else {
+      $folder       = staging_parse($name, 'basename')
+      $creates_path = "${target}/${folder}"
+    }
   }
 
   Exec{
-    path        => '/usr/bin:/bin',
+    path        => '/usr/local/bin:/usr/bin:/bin',
     cwd         => $target,
     user        => $user,
     group       => $group,
