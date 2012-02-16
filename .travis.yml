@@ -11,6 +11,9 @@ after_script:
   - 'rm /home/vagrant/.puppet/hiera.yaml'
   - 'rmdir /home/vagrant/.puppet'
 script: "rake spec"
+branches:
+  only:
+    - master
 env:
   - PUPPET_VERSION=2.6.12
   - PUPPET_VERSION=2.7.6

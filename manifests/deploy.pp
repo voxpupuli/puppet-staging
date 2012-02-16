@@ -16,27 +16,27 @@ define staging::deploy (
 ){
 
   staging::file { $name:
-    source      => $source,
-    target      => $staging_path,
-    username    => $username,
-    certificate => $certificate,
-    password    => $password,
-    environment => $environment,
+    source             => $source,
+    target             => $staging_path,
+    username           => $username,
+    certificate        => $certificate,
+    password           => $password,
+    environment        => $environment,
+    caller_module_name => $caller_module_name,
   }
 
   staging::extract { $name:
-    target      => $target,
-    source      => $staging_path,
-    user        => $user,
-    group       => $group,
-    environment => $environment,
-    creates     => $creates,
-    unless      => $unless,
-    onlyif      => $onlyif,
-    require     => Staging::File[$name],
+    target             => $target,
+    source             => $staging_path,
+    user               => $user,
+    group              => $group,
+    environment        => $environment,
+    caller_module_name => $caller_module_name,
+    creates            => $creates,
+    unless             => $unless,
+    onlyif             => $onlyif,
+    require            => Staging::File[$name],
   }
 
-  if $symlink {
-  }
 }
 

@@ -1,12 +1,15 @@
 # Define: staging::extract
 #
-#   Define resource to extract files from staging directories to target directories.
+#   Define resource to extract files from staging directories to target
+#   directories.
 #
 # Parameters:
 #
 #   * target: the target extraction directory,
-#   * source: the source compression file, supports tar, tar.gz, zip, war. if unspecified defaults to ${staging::path}/${caller_module_name}/${name}
-#   * creates: the file created after extraction. if unspecified defaults to ${target}/${name}.
+#   * source: the source compression file, supports tar, tar.gz, zip, war. if
+#   unspecified defaults to ${staging::path}/${caller_module_name}/${name} *
+#   creates: the file created after extraction. if unspecified defaults to
+#   ${target}/${name}.
 #   * unless: alternative way to conditionally check whether to extract file.
 #   * onlyif: alternative way to conditionally check whether to extract file.
 #   * user: extract file as this user.
@@ -28,7 +31,9 @@ define staging::extract (
   $onlyif      = undef,
   $user        = undef,
   $group       = undef,
-  $environment = undef
+  $environment = undef,
+  # allowing pass through of real caller.
+  $caller_module_name = $caller_module_name
 ) {
 
   include staging
@@ -39,7 +44,8 @@ define staging::extract (
     $source_path = "${staging::path}/${caller_module_name}/${name}"
   }
 
-  # Use user supplied creates path, set default value if creates, unless or onlyif is not supplied.
+  # Use user supplied creates path, set default value if creates, unless or
+  # onlyif is not supplied.
   if $creates {
     $creates_path = $creates
   } elsif ! ($unless or $onlyif) {

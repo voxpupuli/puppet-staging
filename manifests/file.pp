@@ -6,12 +6,14 @@
 #
 # Parameters:
 #
-#   * source: the source file location, supports local files, puppet://, http://, https://, ftp://
-#   * target: the target staging directory, if unspecified ${staging::path}/${caller_module_name}.
-#   * username: https or ftp username.
+#   * source: the source file location, supports local files, puppet://,
+#   http://, https://, ftp:// * target: the target staging directory, if
+#   unspecified
+#   ${staging::path}/${caller_module_name}.  * username: https or ftp username.
 #   * certificate: https certificate file.
 #   * password: https or ftp user password or https certificate password.
-#   * environment: environment variable for settings such as http_proxy, https_proxy, of ftp_proxy.
+#   * environment: environment variable for settings such as http_proxy,
+#   https_proxy, of ftp_proxy.
 #
 # Usage:
 #
@@ -19,7 +21,8 @@
 #     source => 'http://apache.cs.utah.edu/tomcat/tomcat-6/v6.0.35/bin/apache-tomcat-6.0.35.tar.gz',
 #   }
 #
-#   If you specify a different staging location, please manage the file resource as necessary.
+#   If you specify a different staging location, please manage the file
+#   resource as necessary.
 #
 define staging::file (
   $source,
@@ -27,7 +30,9 @@ define staging::file (
   $username    = undef,
   $certificate = undef,
   $password    = undef,
-  $environment = undef
+  $environment = undef,
+  # allowing pass through of real caller.
+  $caller_module_name = $caller_module_name
 ) {
 
   include staging
