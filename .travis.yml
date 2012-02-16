@@ -4,7 +4,7 @@ rvm:
 before_install:
   - 'git clone git://github.com/puppetlabs/hiera-puppet.git spec/fixtures/modules/hiera-puppet'
   - 'mkdir /home/vagrant/.puppet'
-  - 'ln -s spec/fixtures/hiera.yaml /home/vagrant/.puppet/hiera.yaml'
+  - 'cp spec/fixtures/hiera.yaml /home/vagrant/.puppet/hiera.yaml'
   - 'cat /home/vagrant/.puppet/hiera.yaml'
 script: "rake spec"
 env:
