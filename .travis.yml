@@ -3,6 +3,7 @@ rvm:
   - 1.8.7
 before_install:
   - 'git clone git://github.com/puppetlabs/hiera-puppet.git spec/fixtures/modules/hiera-puppet'
+  - 'ln -s spec/fixtures/hiera.yaml ~/.puppet/hiera.yaml'
 script: "rake spec"
 env:
   - PUPPET_VERSION=2.6.12
