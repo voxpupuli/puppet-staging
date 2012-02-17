@@ -7,6 +7,7 @@ define staging::deploy (
   $certificate  = undef,
   $password     = undef,
   $environment  = undef,
+  $timeout      = undef,
   # staging extract settings:
   $user         = undef,
   $group        = undef,
@@ -23,6 +24,7 @@ define staging::deploy (
     password           => $password,
     environment        => $environment,
     caller_module_name => $caller_module_name,
+    timeout            => $timeout,
   }
 
   staging::extract { $name:
