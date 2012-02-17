@@ -32,7 +32,7 @@ define staging::file (
   $password    = undef,
   $environment = undef,
   # allowing pass through of real caller.
-  $caller_module_name = $caller_module_name
+  $subdir      = $caller_module_name
 ) {
 
   include staging
@@ -41,7 +41,7 @@ define staging::file (
     $target_file = $target
     $staging_dir = staging_parse($target, 'parent')
   } else {
-    $staging_dir = "${staging::path}/${caller_module_name}"
+    $staging_dir = "${staging::path}/${subdir}"
     $target_file = "${staging_dir}/${name}"
 
     if ! defined(File[$staging_dir]) {

@@ -2,6 +2,8 @@
 
 Puppet management of staging directory, along with retrieval/extraction of staging files.
 
+[![Build Status](https://secure.travis-ci.org/nanliu/puppet-staging.png?branch=master)](http://travis-ci.org/nanliu/puppet-staging)
+
 ## Usage
 
 Specify a different default staging path (must be declared before using resource):
@@ -58,14 +60,14 @@ If you don't have hiera in your environment either module with the appropriate m
 
 * [puppet-hiera](https://github.com/nanliu/puppet-hiera)
 
-    class { 'hiera':
-      confdir    => '/etc/puppet',
-      modulepath => '/etc/puppet/modules',
-    }
+        class { 'hiera':
+          confdir    => '/etc/puppet',
+          modulepath => '/etc/puppet/modules',
+        }
 
 * [puppetlabs-puppet](https://github.com/puppetlabs/puppetlabs-puppet)
 
-    class { 'puppet::hiera':
-      confdir    => '/etc/puppet',
-      modulepath => '/etc/puppet/modules',
-    }
+        class { 'puppet::hiera':
+          confdir    => '/etc/puppet',
+          modulepath => '/etc/puppet/modules',
+        }

@@ -33,7 +33,7 @@ define staging::extract (
   $group       = undef,
   $environment = undef,
   # allowing pass through of real caller.
-  $caller_module_name = $caller_module_name
+  $subdir      = $caller_module_name
 ) {
 
   include staging
@@ -41,7 +41,7 @@ define staging::extract (
   if $source {
     $source_path = $source
   } else {
-    $source_path = "${staging::path}/${caller_module_name}/${name}"
+    $source_path = "${staging::path}/${subdir}/${name}"
   }
 
   # Use user supplied creates path, set default value if creates, unless or
