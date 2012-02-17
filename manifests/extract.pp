@@ -7,13 +7,15 @@
 #
 #   * target: the target extraction directory,
 #   * source: the source compression file, supports tar, tar.gz, zip, war. if
-#   unspecified defaults to ${staging::path}/${caller_module_name}/${name} *
-#   creates: the file created after extraction. if unspecified defaults to
+#   unspecified defaults to ${staging::path}/${caller_module_name}/${name}
+#   * creates: the file created after extraction. if unspecified defaults to
 #   ${target}/${name}.
 #   * unless: alternative way to conditionally check whether to extract file.
 #   * onlyif: alternative way to conditionally check whether to extract file.
 #   * user: extract file as this user.
 #   * group: extract file as this group.
+#   * environments: environment variables.
+#   * subdir: subdir per module in staging directory.
 #
 # Usage:
 #

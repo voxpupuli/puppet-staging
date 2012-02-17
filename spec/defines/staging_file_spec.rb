@@ -115,4 +115,5 @@ describe 'staging::file', :type => :define do
        :creates     => '/opt/staging/spec/sample.tar.gz',
      }) }
   end
+
 end

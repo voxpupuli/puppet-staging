@@ -7,9 +7,10 @@
 # Parameters:
 #
 #   * source: the source file location, supports local files, puppet://,
-#   http://, https://, ftp:// * target: the target staging directory, if
-#   unspecified
-#   ${staging::path}/${caller_module_name}.  * username: https or ftp username.
+#   http://, https://, ftp://.
+#   * target: the target staging directory, if unspecified
+#   ${staging::path}/${caller_module_name}.
+#   * username: https or ftp username.
 #   * certificate: https certificate file.
 #   * password: https or ftp user password or https certificate password.
 #   * environment: environment variable for settings such as http_proxy,
