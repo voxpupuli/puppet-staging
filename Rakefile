@@ -27,6 +27,11 @@ task :build do
   end
 end
 
+desc "Clean the package directory"
+task :clean do
+  FileUtils.rm_rf("pkg/")
+end
+
 desc "Check puppet manifests with puppet-lint"
 task :lint do
   # This requires pull request: https://github.com/rodjek/puppet-lint/pull/81

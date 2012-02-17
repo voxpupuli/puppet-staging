@@ -54,8 +54,24 @@ define staging::file (
     }
   }
 
+  case $operatingsystem {
+    'windows': {
+      $path = 'C:\curl'
+      $curl = 'curl.exe'
+      file { 'c:\curl':
+        source  => 'puppet:///modules/staging/curl',
+        recurse => true,
+        before  => Exec[$target_file],
+      }
+    }
+    default: {
+      $path = '/usr/local/bin:/usr/bin:/bin'
+      $curl = 'curl'
+    }
+  }
+
   Exec {
-    path        => '/usr/local/bin:/usr/bin:/bin',
+    path        => $path,
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
@@ -79,17 +95,17 @@ define staging::file (
 
     /^http:\/\//: {
       exec { $target_file:
-        command     => "curl -L -o ${name} ${source}",
+        command     => "${curl} -L -o ${name} ${source}",
       }
     }
 
     /^https:\/\//: {
       if $username {
-        $command = "curl -L -o ${name} -u ${username}:${password} ${source}"
+        $command = "${curl} -L -o ${name} -u ${username}:${password} ${source}"
       } elsif $certificate {
-        $command = "curl -L -o ${name} -E ${certificate}:${password} ${source}"
+        $command = "${curl} -L -o ${name} -E ${certificate}:${password} ${source}"
       } else {
-        $command = "curl -L -o ${name} ${source}"
+        $command = "${curl} -L -o ${name} ${source}"
       }
 
       exec { $target_file:
@@ -99,9 +115,9 @@ define staging::file (
 
     /^ftp:\/\//: {
       if $username {
-        $command = "curl -o ${name} -u ${username}:${password} ${source}"
+        $command = "${curl} -o ${name} -u ${username}:${password} ${source}"
       } else {
-        $command = "curl -o ${name} ${source}"
+        $command = "${curl} -o ${name} ${source}"
       }
 
       exec { $target_file:
