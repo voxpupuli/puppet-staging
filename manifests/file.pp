@@ -14,6 +14,7 @@
 #   * password: https or ftp user password or https certificate password.
 #   * environment: environment variable for settings such as http_proxy,
 #   https_proxy, of ftp_proxy.
+#   * timeout: the the time to wait for the file transfer to complete
 #
 # Usage:
 #
@@ -31,6 +32,7 @@ define staging::file (
   $certificate = undef,
   $password    = undef,
   $environment = undef,
+  $timeout     = undef,
   # allowing pass through of real caller.
   $caller_module_name = $caller_module_name
 ) {
@@ -56,6 +58,7 @@ define staging::file (
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
+    timeout     => $timeout,
   }
 
   case $source {
