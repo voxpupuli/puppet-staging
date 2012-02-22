@@ -44,7 +44,7 @@ define staging::deploy (
   $group        = undef,
   $creates      = undef,
   $unless       = undef,
-  $onlyif       = undef,
+  $onlyif       = undef
 ){
 
   staging::file { $name:
