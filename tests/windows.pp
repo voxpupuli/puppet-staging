@@ -9,7 +9,7 @@ staging::file { '7z.msi':
 }
 
 package { '7z':
-  ensure => present,
-  source => 'C:\\Programdata\\PuppetLabs\\staging\\7z.msi',
+  ensure  => present,
+  source  => 'C:\\Programdata\\PuppetLabs\\staging\\7z.msi',
   require => Staging::File['7z.msi'],
 }
