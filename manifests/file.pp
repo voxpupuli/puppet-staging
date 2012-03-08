@@ -54,23 +54,22 @@ define staging::file (
     }
   }
 
-  case $operatingsystem {
+  case $::operatingsystem {
     'windows': {
-      $path = 'C:\curl'
-      $curl = 'curl.exe'
+      $path    = 'C:\curl'
+      $curl    = 'curl.exe'
+      $require = File['c:\curl']
       if ! defined(File['c:\curl']) {
         file { 'c:\curl':
           source  => 'puppet:///modules/staging/curl',
           recurse => true,
-          before  => Exec[$target_file],
         }
-      } else {
-        File['c:\curl'] -> Exec[$target_file]
       }
     }
     default: {
-      $path = '/usr/local/bin:/usr/bin:/bin'
-      $curl = 'curl'
+      $path    = '/usr/local/bin:/usr/bin:/bin'
+      $curl    = 'curl'
+      $require = undef
     }
   }
 
@@ -80,6 +79,7 @@ define staging::file (
     cwd         => $staging_dir,
     creates     => $target_file,
     timeout     => $timeout,
+    require     => $require,
   }
 
   case $source {
