@@ -58,10 +58,14 @@ define staging::file (
     'windows': {
       $path = 'C:\curl'
       $curl = 'curl.exe'
-      file { 'c:\curl':
-        source  => 'puppet:///modules/staging/curl',
-        recurse => true,
-        before  => Exec[$target_file],
+      if ! defined(File['c:\curl']) {
+        file { 'c:\curl':
+          source  => 'puppet:///modules/staging/curl',
+          recurse => true,
+          before  => Exec[$target_file],
+        }
+      } else {
+        File['c:\curl'] -> Exec[$target_file],
       }
     }
     default: {
