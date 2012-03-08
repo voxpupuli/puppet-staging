@@ -65,7 +65,7 @@ define staging::file (
           before  => Exec[$target_file],
         }
       } else {
-        File['c:\curl'] -> Exec[$target_file],
+        File['c:\curl'] -> Exec[$target_file]
       }
     }
     default: {
