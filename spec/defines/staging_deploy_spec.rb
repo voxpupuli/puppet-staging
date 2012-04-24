@@ -2,8 +2,9 @@ require 'spec_helper'
 describe 'staging::deploy', :type => :define do
 
   # forcing a more sane caller_module_name to match real usage.
-  let(:facts) { { :caller_module_name=> 'spec',
-                  :osfamily          => 'RedHat' } }
+  let(:facts) { { :caller_module_name => 'spec',
+                  :osfamily           => 'RedHat',
+                  :path               => '/usr/local/bin:/usr/bin:/bin', } }
 
   describe 'when deploying tar.gz' do
      let(:title) { 'sample.tar.gz' }

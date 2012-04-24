@@ -60,16 +60,29 @@ define staging::extract (
     }
   }
 
-  Exec{
-    path        => '/usr/local/bin:/usr/bin:/bin',
-    cwd         => $target,
-    user        => $user,
-    group       => $group,
-    environment => $environment,
-    creates     => $creates_path,
-    unless      => $unless,
-    onlyif      => $onlyif,
-    logoutput   => on_failure,
+  if scope_defaults('Exec','path') {
+    Exec{
+      cwd         => $target,
+      user        => $user,
+      group       => $group,
+      environment => $environment,
+      creates     => $creates_path,
+      unless      => $unless,
+      onlyif      => $onlyif,
+      logoutput   => on_failure,
+    }
+  } else {
+    Exec{
+      path        => $::path,
+      cwd         => $target,
+      user        => $user,
+      group       => $group,
+      environment => $environment,
+      creates     => $creates_path,
+      unless      => $unless,
+      onlyif      => $onlyif,
+      logoutput   => on_failure,
+    }
   }
 
   case $name {
