@@ -48,7 +48,9 @@ I'm considering support for additional protocols such as rsync and git.
 
 ## Requirement
 
-This module requires hiera on the puppet master (no changes to puppet agent) with puppet backend and data as the datasource (default setting):
+This module no longer requires hiera on the puppet master.
+
+ (no changes to puppet agent) with puppet backend and data as the datasource (default setting):
 
     ---
     :backend: - puppet

@@ -22,13 +22,11 @@
 #
 # Requires:
 #
-#   hiera
-#
 class staging (
-  $path  = hiera('staging_path', '/opt/staging'),
-  $owner = hiera('staging_owner', '0'),
-  $group = hiera('staging_group', '0'),
-  $mode  = hiera('staging_mode', '0755')
+  $path  = '/opt/staging',
+  $owner = '0',
+  $group = '0',
+  $mode  = '0755'
 ) {
 
   file { $path:
