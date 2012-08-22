@@ -1,6 +1,7 @@
 # Define: staging::deploy
 #
-#   Define resource to retrieve compressed files to deploy to target directories.
+#   Define resource to retrieve compressed files to deploy to target
+#   directories.
 #
 # Parameters:
 #
