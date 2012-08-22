@@ -1,8 +1,10 @@
-# puppet-staging
+# Staging module for Puppet
 
-Puppet management of staging directory, along with retrieval/extraction of staging files.
+Manages staging directory, along with download/extraction of compressed files.
 
 [![Build Status](https://secure.travis-ci.org/nanliu/puppet-staging.png?branch=master)](http://travis-ci.org/nanliu/puppet-staging)
+
+WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should be available in Puppet 3.0.
 
 ## Usage
 
@@ -43,33 +45,3 @@ Staging files currently support the following source:
 * puppet://
 * ftp://
 * local (though this doesn't serve any real purpose.)
-
-I'm considering support for additional protocols such as rsync and git.
-
-## Requirement
-
-This module no longer requires hiera on the puppet master.
-
- (no changes to puppet agent) with puppet backend and data as the datasource (default setting):
-
-    ---
-    :backend: - puppet
-
-    :puppet:
-        :datasource: data
-
-If you don't have hiera in your environment either module with the appropriate manifests will deploy hiera on the puppet master:
-
-* [puppet-hiera](https://github.com/nanliu/puppet-hiera)
-
-        class { 'hiera':
-          confdir    => '/etc/puppet',
-          modulepath => '/etc/puppet/modules',
-        }
-
-* [puppetlabs-puppet](https://github.com/puppetlabs/puppetlabs-puppet)
-
-        class { 'puppet::hiera':
-          confdir    => '/etc/puppet',
-          modulepath => '/etc/puppet/modules',
-        }
