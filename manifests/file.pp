@@ -60,6 +60,7 @@ define staging::file (
     cwd         => $staging_dir,
     creates     => $target_file,
     timeout     => $timeout,
+    logoutput   => on_failure,
   }
 
   case $source {

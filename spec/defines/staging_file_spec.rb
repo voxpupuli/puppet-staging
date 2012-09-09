@@ -40,6 +40,7 @@ describe 'staging::file', :type => :define do
         :environment => nil,
         :cwd         => '/opt/staging/spec',
         :creates     => '/opt/staging/spec/sample.tar.gz',
+        :logoutput   => 'on_failure',
       })
     }
   end
@@ -72,6 +73,7 @@ describe 'staging::file', :type => :define do
        :environment => nil,
        :cwd         => '/opt/staging/spec',
        :creates     => '/opt/staging/spec/sample.tar.gz',
+       :logoutput   => 'on_failure',
      }) }
   end
 
@@ -90,6 +92,7 @@ describe 'staging::file', :type => :define do
         :environment => nil,
         :cwd         => '/opt/staging/spec',
         :creates     => '/opt/staging/spec/sample.tar.gz',
+        :logoutput   => 'on_failure',
       })
     }
   end
@@ -106,6 +109,7 @@ describe 'staging::file', :type => :define do
         :environment => nil,
         :cwd         => '/opt/staging/spec',
         :creates     => '/opt/staging/spec/sample.tar.gz',
+        :logoutput   => 'on_failure',
       })
     }
   end
@@ -125,6 +129,7 @@ describe 'staging::file', :type => :define do
         :environment => nil,
         :cwd         => '/opt/staging/spec',
         :creates     => '/opt/staging/spec/sample.tar.gz',
+        :logoutput   => 'on_failure',
       })
     }
   end
