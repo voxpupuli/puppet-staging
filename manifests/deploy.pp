@@ -1,52 +1,19 @@
-# Define: staging::deploy
-#
-#   Define resource to retrieve compressed files to deploy to target
-#   directories.
-#
-# Parameters:
-#
-#   * source: the source file location, supports local files, puppet://,
-#   http://, https://, ftp://
-#   * target: the target extraction directory.
-#   * staging_path: the staging location for compressed file. defaults to
-#   ${staging::path}/${caller_module_name}.
-#   * username: https or ftp username.
-#   * certificate: https certificate file.
-#   * password: https or ftp user password or https certificate password.
-#   * environment: environment variable for settings such as http_proxy,
-#   https_proxy, of ftp_proxy.
-#   * timeout: the the time to wait for the file transfer to complete
-#   * user: extract file as this user.
-#   * group: extract file as this group.
-#   * creates: the file created after extraction. if unspecified defaults to
-#   ${target}/${name}.
-#   * unless: alternative way to conditionally check whether to extract file.
-#   * onlyif: alternative way to conditionally check whether to extract file.
-#
-# Usage:
-#
-#   staging::deploy { 'jboss-5.1.0.GA.zip':
-#     source => 'http://sourceforge.net/projects/jboss/files/JBoss/JBoss-5.1.0.GA/jboss-5.1.0.GA.zip',
-#     target => '/usr/local',
-#   }
-#
+# The define resource extracts compressed file to a staging location.
 define staging::deploy (
-  $source,
-  $target,
-  $staging_path = undef,
-  # staging file settings:
-  $username     = undef,
-  $certificate  = undef,
-  $password     = undef,
-  $environment  = undef,
-  $timeout      = undef,
-  # staging extract settings:
-  $user         = undef,
-  $group        = undef,
-  $creates      = undef,
-  $unless       = undef,
-  $onlyif       = undef
-){
+  $source,               #: the source file location, supports local files, puppet://, http://, https://, ftp://
+  $target,               #: the target extraction directory
+  $staging_path = undef, #: the staging location for compressed file. defaults to ${staging::path}/${caller_module_name}
+  $username     = undef, #: https or ftp username
+  $certificate  = undef, #: https certifcate file
+  $password     = undef, #: https or ftp user password or https certificate password
+  $environment  = undef, #: environment variable for settings such as http_proxy
+  $timeout      = undef, #: the time to wait for the file transfer to complete
+  $user         = undef, #: extract file as this user
+  $group        = undef, #: extract group as this group
+  $creates      = undef, #: the file/folder created after extraction. if unspecified defaults to ${target}/${name}
+  $unless       = undef, #: alternative way to conditionally extract file
+  $onlyif       = undef  #: alternative way to conditionally extract file
+) {
 
   staging::file { $name:
     source      => $source,

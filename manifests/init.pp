@@ -1,32 +1,20 @@
-# Class: staging
-#
 #   This module manages staging and extraction of files from various sources.
 #
-# Parameters:
+# #### Actions:
 #
-#   * path: staging directory (/opt/staging).
-#   * owner: staging directory owner (root).
-#   * group: staging directory group (root).
-#   * mode: staging directory permission (0755).
+#   Creates the root staging directory. By default files will be created in a subdirectory matching the caller_module_name.
 #
-# Actions:
-#
-#   Creates the root staging directory. By default files will be created in a
-#   subdirectory matching the caller_module_name.
-#
-#   /opt/staging/
-#               |-- puppet
-#               |   `-- puppet.enterprise.2.0.tar.gz
-#               `-- tomcat
-#                   `-- tomcat.5.0.tar.gz
-#
-# Requires:
+#      /opt/staging/
+#                 |-- puppet
+#                 |   `-- puppet.enterprise.2.0.tar.gz
+#                 `-- tomcat
+#                     `-- tomcat.5.0.tar.gz
 #
 class staging (
-  $path  = '/opt/staging',
-  $owner = '0',
-  $group = '0',
-  $mode  = '0755'
+  $path  = '/opt/staging', #: staging directory filepath
+  $owner = '0',            #: staging directory owner
+  $group = '0',            #: staging directory group
+  $mode  = '0755'          #: staging directory permission
 ) {
 
   file { $path:

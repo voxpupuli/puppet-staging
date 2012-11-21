@@ -1,41 +1,14 @@
-# Define: staging::extract
-#
-#   Define resource to extract files from staging directories to target
-#   directories.
-#
-# Parameters:
-#
-#   * target: the target extraction directory,
-#   * source: the source compression file, supports tar, tar.gz, zip, war. if
-#   unspecified defaults to ${staging::path}/${caller_module_name}/${name}
-#   * creates: the file created after extraction. if unspecified defaults to
-#   ${target}/${name}.
-#   * unless: alternative way to conditionally check whether to extract file.
-#   * onlyif: alternative way to conditionally check whether to extract file.
-#   * user: extract file as this user.
-#   * group: extract file as this group.
-#   * environments: environment variables.
-#   * subdir: subdir per module in staging directory.
-#
-# Usage:
-#
-#   staging::extract { 'apache-tomcat-6.0.35':
-#     target => '/opt',
-#     owner  => 'tomcat',
-#     group  => 'tomcat',
-#   }
-#
+# Define resource to extract files from staging directories to target directories.
 define staging::extract (
-  $target,
-  $source      = undef,
-  $creates     = undef,
-  $unless      = undef,
-  $onlyif      = undef,
-  $user        = undef,
-  $group       = undef,
-  $environment = undef,
-  # allowing pass through of real caller.
-  $subdir      = $caller_module_name
+  $target,              #: the target extraction directory
+  $source      = undef, #: the source compression file, supports tar, tar.gz, zip, war
+  $creates     = undef, #: the file created after extraction. if unspecified defaults ${staging::path}/${caller_module_name}/${name} ${target}/${name}
+  $unless      = undef, #: alternative way to conditionally check whether to extract file.
+  $onlyif      = undef, #: alternative way to conditionally check whether to extract file.
+  $user        = undef, #: extract file as this user.
+  $group       = undef, #:  extract file as this group.
+  $environment = undef, #: environment variables.
+  $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
   include staging

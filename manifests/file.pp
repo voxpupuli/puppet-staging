@@ -1,40 +1,22 @@
-# Define: staging::file
+# #### Overview:
 #
-#   Define resource to retrieve files to staging directories. It is
-#   intententionally not replacing files, as these intend to be large binaries
-#   that are versioned.
+# Define resource to retrieve files to staging directories. It is
+# intententionally not replacing files, as these intend to be large binaries
+# that are versioned.
 #
-# Parameters:
-#
-#   * source: the source file location, supports local files, puppet://,
-#   http://, https://, ftp://.
-#   * target: the target staging directory, if unspecified
-#   ${staging::path}/${caller_module_name}.
-#   * username: https or ftp username.
-#   * certificate: https certificate file.
-#   * password: https or ftp user password or https certificate password.
-#   * environment: environment variable for settings such as http_proxy,
-#   https_proxy, of ftp_proxy.
-#   * timeout: the the time to wait for the file transfer to complete
-#
-# Usage:
-#
-#   staging::file { 'apache-tomcat-6.0.35':
-#     source => 'http://apache.cs.utah.edu/tomcat/tomcat-6/v6.0.35/bin/apache-tomcat-6.0.35.tar.gz',
-#   }
+# #### Notes:
 #
 #   If you specify a different staging location, please manage the file
 #   resource as necessary.
 #
 define staging::file (
-  $source,
-  $target      = undef,
-  $username    = undef,
-  $certificate = undef,
-  $password    = undef,
-  $environment = undef,
-  $timeout     = undef,
-  # allowing pass through of real caller.
+  $source,              #: the source file location, supports local files, puppet://, http://, https://, ftp://
+  $target      = undef, #: the target staging directory, if unspecified ${staging::path}/${caller_module_name}
+  $username    = undef, #: https or ftp username
+  $certificate = undef, #: https certificate file
+  $password    = undef, #: https or ftp user password or https certificate password
+  $environment = undef, #: environment variable for settings such as http_proxy, https_proxy, of ftp_proxy
+  $timeout     = undef, #: the the time to wait for the file transfer to complete
   $subdir      = $caller_module_name
 ) {
 
