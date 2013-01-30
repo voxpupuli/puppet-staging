@@ -61,9 +61,16 @@ define staging::file (
     }
 
     /^http:\/\//: {
-      exec { $target_file:
-        command     => "curl -L -o ${name} ${source}",
+
+      if $username {
+        $command = "curl -L -o ${name} -u ${username}:${password} ${source}"
+      } else {
+        $command = "curl -L -o ${name} ${source}"
       }
+
+      exec { $target_file:
+        command     => $command,
+      }  
     }
 
     /^https:\/\//: {
