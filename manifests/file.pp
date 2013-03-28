@@ -63,9 +63,9 @@ define staging::file (
     /^http:\/\//: {
 
       if $username {
-        $command = "curl -L -o ${name} -u ${username}:${password} ${source}"
+        $command = "curl -f -L -o ${name} -u ${username}:${password} ${source}"
       } else {
-        $command = "curl -L -o ${name} ${source}"
+        $command = "curl -f -L -o ${name} ${source}"
       }
 
       exec { $target_file:
@@ -75,11 +75,11 @@ define staging::file (
 
     /^https:\/\//: {
       if $username {
-        $command = "curl -L -o ${name} -u ${username}:${password} ${source}"
+        $command = "curl -f -L -o ${name} -u ${username}:${password} ${source}"
       } elsif $certificate {
-        $command = "curl -L -o ${name} -E ${certificate}:${password} ${source}"
+        $command = "curl -f -L -o ${name} -E ${certificate}:${password} ${source}"
       } else {
-        $command = "curl -L -o ${name} ${source}"
+        $command = "curl -f -L -o ${name} ${source}"
       }
 
       exec { $target_file:
