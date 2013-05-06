@@ -45,6 +45,23 @@ define staging::file (
     logoutput   => on_failure,
   }
 
+  case $::staging_http_get {
+    'curl', default: {
+      $http_get        = "curl -f -L -o ${name} ${source}"
+      $http_get_passwd = "curl -f -L -o ${name} -u ${username}:${password} ${source}"
+      $http_get_cert   = "curl -f -L -o ${name} -E ${certificate}:${password} ${source}"
+      $ftp_get         = "curl -o ${name} ${source}"
+      $ftp_get_passwd  = "curl -o ${name} -u ${username}:${password} ${source}"
+    }
+    'wget': {
+      $http_get        = "wget -O ${name} ${source}"
+      $http_get_passwd = "wget -O ${name} --user=${username} --password=${password} ${source}"
+      $http_get_cert   = "wget -O ${name} --user=${username} --certificate=${certificate} ${source}"
+      $ftp_get         = $http_get
+      $ftp_get_passwd  = $http_get_passwd
+    }
+  }
+
   case $source {
     /^\//: {
       file { $target_file:
@@ -52,53 +69,34 @@ define staging::file (
         replace => false,
       }
     }
-
     /^puppet:\/\//: {
       file { $target_file:
         source  => $source,
         replace => false,
       }
     }
-
     /^http:\/\//: {
-
-      if $username {
-        $command = "curl -f -L -o ${name} -u ${username}:${password} ${source}"
-      } else {
-        $command = "curl -f -L -o ${name} ${source}"
-      }
-
+      if $username { $command = $http_get_passwd }
+      else         { $command = $http_get        }
       exec { $target_file:
-        command     => $command,
-      }  
+        command => $command,
+      }
     }
-
     /^https:\/\//: {
-      if $username {
-        $command = "curl -f -L -o ${name} -u ${username}:${password} ${source}"
-      } elsif $certificate {
-        $command = "curl -f -L -o ${name} -E ${certificate}:${password} ${source}"
-      } else {
-        $command = "curl -f -L -o ${name} ${source}"
-      }
-
+      if $username       { $command = $http_get_passwd }
+      elsif $certificate { $command = $http_get_cert   }
+      else               { $command = $http_get        }
       exec { $target_file:
-        command     => $command,
+        command => $command,
       }
     }
-
     /^ftp:\/\//: {
-      if $username {
-        $command = "curl -o ${name} -u ${username}:${password} ${source}"
-      } else {
-        $command = "curl -o ${name} ${source}"
-      }
-
+      if $username       { $command = $ftp_get_passwd }
+      else               { $command = $ftp_get        }
       exec { $target_file:
         command     => $command,
       }
     }
-
     default: {
       fail("stage::file: do not recognize source ${source}.")
     }
