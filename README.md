@@ -45,3 +45,10 @@ Staging files currently support the following source:
 * puppet://
 * ftp://
 * local (though this doesn't serve any real purpose.)
+
+## Contributor
+
+* Adrien Thebo
+* Harald Skoglund
+* Hunter Haugen
+* Reid Vandewiele
