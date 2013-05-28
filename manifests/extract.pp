@@ -75,7 +75,7 @@ define staging::extract (
       $command = "unzip ${source_path}"
     }
 
-    /.war$/: {
+    /(.war|.jar)$/: {
       $command = "jar xf ${source_path}"
     }
 
