@@ -26,6 +26,10 @@ describe "the staging parser function" do
     lambda { @scope.function_staging_parse(['/etc', 'sheep', '.zip']) }.should( raise_error(Puppet::ParseError))
   end
 
+  it "should raise a ParseError if 'source' doesn't have a URI path component" do
+    lambda { @scope.function_staging_parse(['uri:without-path']) }.should( raise_error(Puppet::ParseError, /has no URI 'path' component/))
+  end
+
   it "should return the filename by default" do
     result = @scope.function_staging_parse(["/etc/puppet/sample.tar.gz"])
     result.should(eq('sample.tar.gz'))
