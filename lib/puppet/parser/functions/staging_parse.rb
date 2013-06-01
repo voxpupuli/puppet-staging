@@ -11,6 +11,10 @@ Parse filepath to retrieve information about the file.
 
     source    = arguments[0]
     path      = URI.parse(source).path
+
+    raise Puppet::ParseError, "staging_parse(): #{source.inspect} has no URI " +
+      "'path' component" if path.nil?
+
     info      = arguments[1] ? arguments[1] : 'filename'
     extension = arguments[2] ? arguments[2] : File.extname(path)
 
