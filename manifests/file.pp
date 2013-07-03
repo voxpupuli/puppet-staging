@@ -17,6 +17,8 @@ define staging::file (
   $password    = undef, #: https or ftp user password or https certificate password
   $environment = undef, #: environment variable for settings such as http_proxy, https_proxy, of ftp_proxy
   $timeout     = undef, #: the the time to wait for the file transfer to complete
+  $curl_option = undef, #: options to pass to curl
+  $wget_option = undef, #: options to pass to wget
   $subdir      = $caller_module_name
 ) {
 
@@ -47,16 +49,16 @@ define staging::file (
 
   case $::staging_http_get {
     'curl', default: {
-      $http_get        = "curl -f -L -o ${name} ${source}"
-      $http_get_passwd = "curl -f -L -o ${name} -u ${username}:${password} ${source}"
-      $http_get_cert   = "curl -f -L -o ${name} -E ${certificate}:${password} ${source}"
-      $ftp_get         = "curl -o ${name} ${source}"
-      $ftp_get_passwd  = "curl -o ${name} -u ${username}:${password} ${source}"
+      $http_get        = "curl ${curl_option} -f -L -o ${name} ${source}"
+      $http_get_passwd = "curl ${curl_option} -f -L -o ${name} -u ${username}:${password} ${source}"
+      $http_get_cert   = "curl ${curl_option} -f -L -o ${name} -E ${certificate}:${password} ${source}"
+      $ftp_get         = "curl ${curl_option} -o ${name} ${source}"
+      $ftp_get_passwd  = "curl ${curl_option} -o ${name} -u ${username}:${password} ${source}"
     }
     'wget': {
-      $http_get        = "wget -O ${name} ${source}"
-      $http_get_passwd = "wget -O ${name} --user=${username} --password=${password} ${source}"
-      $http_get_cert   = "wget -O ${name} --user=${username} --certificate=${certificate} ${source}"
+      $http_get        = "wget ${wget_option} -O ${name} ${source}"
+      $http_get_passwd = "wget ${wget_option} -O ${name} --user=${username} --password=${password} ${source}"
+      $http_get_cert   = "wget ${wget_option} -O ${name} --user=${username} --certificate=${certificate} ${source}"
       $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
     }
