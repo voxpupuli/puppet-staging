@@ -11,11 +11,11 @@
 #                     `-- tomcat.5.0.tar.gz
 #
 class staging (
-  $path  = '/opt/staging', #: staging directory filepath
-  $owner = '0',            #: staging directory owner
-  $group = '0',            #: staging directory group
-  $mode  = '0755'          #: staging directory permission
-) {
+  $path  = $staging::params::path,  #: staging directory filepath
+  $owner = $staging::params::owner, #: staging directory owner
+  $group = $staging::params::group, #: staging directory group
+  $mode  = $staging::params::mode,  #: staging directory permission
+) inherits staging::params {
 
   file { $path:
     ensure => directory,
