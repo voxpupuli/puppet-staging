@@ -21,8 +21,8 @@ define staging::file (
   $wget_option = undef, #: options to pass to wget
   $subdir      = $caller_module_name
 ) {
-
   include staging
+  include staging::params
 
   if $target {
     $target_file = $target
@@ -39,12 +39,13 @@ define staging::file (
   }
 
   Exec {
-    path        => '/usr/local/bin:/usr/bin:/bin',
+    path        => $staging::params::exec_path,
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
     timeout     => $timeout,
     logoutput   => on_failure,
+    provider    => $staging::params::exec_provider,
   }
 
   case $::staging_http_get {
@@ -61,6 +62,13 @@ define staging::file (
       $http_get_cert   = "wget ${wget_option} -O ${name} --user=${username} --certificate=${certificate} ${source}"
       $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
+    }
+    'powershell': {
+      $http_get        = "(New-Object System.Net.WebClient).DownloadFile(\"${source}\", \"${name}\")"
+      $http_get_passwd = $http_get
+      $http_get_cert   = $http_get
+      $ftp_get         = $http_get
+      $ftp_get_passwd  = $http_get
     }
   }
 
@@ -96,7 +104,7 @@ define staging::file (
       if $username       { $command = $ftp_get_passwd }
       else               { $command = $ftp_get        }
       exec { $target_file:
-        command     => $command,
+        command => $command,
       }
     }
     default: {
