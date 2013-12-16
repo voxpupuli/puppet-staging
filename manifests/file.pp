@@ -39,9 +39,13 @@ define staging::file (
       }
     }
   }
+  $default_path = $osfamily ? {
+      'windows' => "${::path}",
+      default   => '/usr/local/bin:/usr/bin:/bin'
+  }
 
   Exec {
-    path        => '/usr/local/bin:/usr/bin:/bin',
+    path        => $default_path,
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
@@ -64,6 +68,9 @@ define staging::file (
       $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
     }
+    'powershell':{
+      $http_get        = "powershell.exe -Command \"(New-Object System.Net.WebClient).DownloadFile('${source}','${target_file}')\""
+    }
   }
 
   case $source {
@@ -83,7 +90,9 @@ define staging::file (
       if $username { $command = $http_get_passwd }
       else         { $command = $http_get        }
       exec { $target_file:
-        command => $command,
+        path      => $default_path,
+        provider  => $provider,
+        command   => $command,
       }
     }
     /^https:\/\//: {
@@ -91,6 +100,8 @@ define staging::file (
       elsif $certificate { $command = $http_get_cert   }
       else               { $command = $http_get        }
       exec { $target_file:
+        path    => $default_path,
+        provider=> $provider,
         command => $command,
       }
     }
@@ -98,6 +109,8 @@ define staging::file (
       if $username       { $command = $ftp_get_passwd }
       else               { $command = $ftp_get        }
       exec { $target_file:
+        path    => $default_path,
+        provider=> $provider,
         command     => $command,
       }
     }
