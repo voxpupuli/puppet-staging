@@ -38,8 +38,8 @@ define staging::file (
     }
   }
   $default_path = $osfamily ? {
-      'windows' => "${::path}",
-      default   => '/usr/local/bin:/usr/bin:/bin'
+    'windows' => "${::path}",
+    default   => '/usr/local/bin:/usr/bin:/bin'
   }
 
   Exec {
@@ -91,7 +91,6 @@ define staging::file (
       if $username { $command = $http_get_passwd }
       else         { $command = $http_get        }
       exec { $target_file:
-        path      => $default_path,
         command   => $command,
       }
     }
@@ -100,7 +99,6 @@ define staging::file (
       elsif $certificate { $command = $http_get_cert   }
       else               { $command = $http_get        }
       exec { $target_file:
-        path    => $default_path,
         command => $command,
       }
     }
@@ -108,7 +106,6 @@ define staging::file (
       if $username       { $command = $ftp_get_passwd }
       else               { $command = $ftp_get        }
       exec { $target_file:
-        path    => $default_path,
         command     => $command,
       }
     }
