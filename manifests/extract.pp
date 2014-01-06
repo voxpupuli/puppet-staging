@@ -8,6 +8,7 @@ define staging::extract (
   $user        = undef, #: extract file as this user.
   $group       = undef, #:  extract file as this group.
   $environment = undef, #: environment variables.
+  $timeout     = undef, #: exec timeout for extraction
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
@@ -40,6 +41,7 @@ define staging::extract (
       group       => $group,
       environment => $environment,
       creates     => $creates_path,
+      timeout     => $timeout,
       unless      => $unless,
       onlyif      => $onlyif,
       logoutput   => on_failure,
@@ -52,6 +54,7 @@ define staging::extract (
       group       => $group,
       environment => $environment,
       creates     => $creates_path,
+      timeout     => $timeout,
       unless      => $unless,
       onlyif      => $onlyif,
       logoutput   => on_failure,
