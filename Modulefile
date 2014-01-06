@@ -8,3 +8,4 @@ description 'Manages file staging.'
 project_page 'https://github.com/nanliu/puppet-staging'
 
 ## Add dependencies, if any:
+dependency 'joshcooper/powershell', '>= 0.0.6'
