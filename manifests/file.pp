@@ -39,13 +39,9 @@ define staging::file (
       }
     }
   }
-  $default_path = $osfamily ? {
-    'windows' => "${::path}",
-    default   => '/usr/local/bin:/usr/bin:/bin'
-  }
 
   Exec {
-    path        => $default_path,
+    path        => $staging::exec_path,
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
