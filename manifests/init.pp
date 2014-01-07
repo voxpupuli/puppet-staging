@@ -11,10 +11,11 @@
 #                     `-- tomcat.5.0.tar.gz
 #
 class staging (
-  $path  = $staging::params::path,  #: staging directory filepath
-  $owner = $staging::params::owner, #: staging directory owner
-  $group = $staging::params::group, #: staging directory group
-  $mode  = $staging::params::mode,  #: staging directory permission
+  $path      = $staging::params::path,     #: staging directory filepath
+  $owner     = $staging::params::owner,    #: staging directory owner
+  $group     = $staging::params::group,    #: staging directory group
+  $mode      = $staging::params::mode,     #: staging directory permission
+  $exec_path = $staging::params::exec_path #: executable default path
 ) inherits staging::params {
 
   file { $path:
