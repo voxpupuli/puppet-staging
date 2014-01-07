@@ -24,6 +24,8 @@ define staging::file (
 
   include staging
 
+  $quoted_source = shellquote($source)
+
   if $target {
     $target_file = $target
     $staging_dir = staging_parse($target, 'parent')
@@ -43,7 +45,7 @@ define staging::file (
   }
 
   Exec {
-    path        => $default_path,
+    path        => $staging::exec_path,
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
@@ -53,16 +55,16 @@ define staging::file (
 
   case $::staging_http_get {
     'curl', default: {
-      $http_get        = "curl ${curl_option} -f -L -o ${name} ${source}"
-      $http_get_passwd = "curl ${curl_option} -f -L -o ${name} -u ${username}:${password} ${source}"
-      $http_get_cert   = "curl ${curl_option} -f -L -o ${name} -E ${certificate}:${password} ${source}"
-      $ftp_get         = "curl ${curl_option} -o ${name} ${source}"
-      $ftp_get_passwd  = "curl ${curl_option} -o ${name} -u ${username}:${password} ${source}"
+      $http_get        = "curl ${curl_option} -f -L -o ${name} ${quoted_source}"
+      $http_get_passwd = "curl ${curl_option} -f -L -o ${name} -u ${username}:${password} ${quoted_source}"
+      $http_get_cert   = "curl ${curl_option} -f -L -o ${name} -E ${certificate}:${password} ${quoted_source}"
+      $ftp_get         = "curl ${curl_option} -o ${name} ${quoted_source}"
+      $ftp_get_passwd  = "curl ${curl_option} -o ${name} -u ${username}:${password} ${quoted_source}"
     }
     'wget': {
-      $http_get        = "wget ${wget_option} -O ${name} ${source}"
-      $http_get_passwd = "wget ${wget_option} -O ${name} --user=${username} --password=${password} ${source}"
-      $http_get_cert   = "wget ${wget_option} -O ${name} --user=${username} --certificate=${certificate} ${source}"
+      $http_get        = "wget ${wget_option} -O ${name} ${quoted_source}"
+      $http_get_passwd = "wget ${wget_option} -O ${name} --user=${username} --password=${password} ${quoted_source}"
+      $http_get_cert   = "wget ${wget_option} -O ${name} --user=${username} --certificate=${certificate} ${quoted_source}"
       $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
     }
