@@ -7,7 +7,7 @@ class staging::params {
       $mode  = '0755'
     }
     'windows': {
-      $path  = 'C:\staging'
+      $path  = $::staging_windir
       $owner = undef
       $group = undef
       $mode  = '0755'
