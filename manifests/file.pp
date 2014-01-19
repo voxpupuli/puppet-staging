@@ -41,7 +41,7 @@ define staging::file (
   }
 
   Exec {
-    path        => '/usr/local/bin:/usr/bin:/bin',
+    path        => $staging::exec_path,
     environment => $environment,
     cwd         => $staging_dir,
     creates     => $target_file,
@@ -64,6 +64,12 @@ define staging::file (
       $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
     }
+    'powershell':{
+      $http_get           = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.DownloadFile('${source}','${target_file}')\""
+      $ftp_get            = $http_get
+      $http_get_password  = "powershell.exe -Command \"\$wc = (New-Object System.Net.WebClient);\$wc.Credentials = New-Object System.Net.NetworkCredential('${username}','${password}');\$wc.DownloadFile(${source},${target_file})\""
+      $ftp_get_password   = $http_get_password
+    }
   }
 
   case $source {
@@ -83,7 +89,7 @@ define staging::file (
       if $username { $command = $http_get_passwd }
       else         { $command = $http_get        }
       exec { $target_file:
-        command => $command,
+        command   => $command,
       }
     }
     /^https:\/\//: {

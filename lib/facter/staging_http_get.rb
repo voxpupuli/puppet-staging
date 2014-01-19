@@ -17,7 +17,7 @@ Facter.add("staging_http_get") do
       result
     end
 
-    ['curl', 'wget'].each do |cmd|
+    ['curl', 'wget', 'powershell'].each do |cmd|
       available = which.call(cmd)
       fact = available ? cmd : nil
       break if fact
