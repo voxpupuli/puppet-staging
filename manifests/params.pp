@@ -8,6 +8,13 @@ class staging::params {
       $mode      = '0755'
       $exec_path = '/usr/local/bin:/usr/bin:/bin'
     }
+    'Solaris': {
+      $path      = '/opt/staging'
+      $owner     = '0'
+      $group     = '0'
+      $mode      = '0755'
+      $exec_path = '/usr/local/bin:/usr/bin:/bin:/usr/sfw/bin'
+    }
     'windows': {
       $path      = $::staging_windir
       $owner     = undef
