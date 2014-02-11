@@ -26,11 +26,12 @@ define staging::extract (
   } elsif ! ($unless or $onlyif) {
     if $name =~ /.tar.gz$/ {
       $folder       = staging_parse($name, 'basename', '.tar.gz')
-      $creates_path = "${target}/${folder}"
+    } elsif $name =~ /.tar.bz2$/ {
+      $folder       = staging_parse($name, 'basename', '.tar.bz2')
     } else {
       $folder       = staging_parse($name, 'basename')
-      $creates_path = "${target}/${folder}"
     }
+    $creates_path = "${target}/${folder}"
   }
 
   if scope_defaults('Exec','path') {
@@ -69,6 +70,10 @@ define staging::extract (
       } else {
         $command = "tar xzf ${source_path}"
       }
+    }
+
+    /.tar.bz2$/: {
+      $command = "tar xjf ${source_path}"
     }
 
     /.zip$/: {
