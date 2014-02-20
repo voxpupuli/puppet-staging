@@ -52,3 +52,4 @@ Staging files currently support the following source:
 * Harald Skoglund
 * Hunter Haugen
 * Reid Vandewiele
+* Justin Clayton
