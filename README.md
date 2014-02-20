@@ -49,7 +49,9 @@ Staging files currently support the following source:
 ## Contributor
 
 * Adrien Thebo
+* gizero
 * Harald Skoglund
 * Hunter Haugen
-* Reid Vandewiele
 * Justin Clayton
+* Owen Jacobson
+* Reid Vandewiele
