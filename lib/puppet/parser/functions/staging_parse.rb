@@ -10,7 +10,7 @@ Parse filepath to retrieve information about the file.
       "given (#{arguments.size} for 1, 2, 3)") if arguments.size < 1 || arguments.size > 3
 
     source    = arguments[0]
-    path      = URI.parse(source).path
+    path      = URI.parse(source.gsub('\\', '/')).path
 
     raise Puppet::ParseError, "staging_parse(): #{source.inspect} has no URI " +
       "'path' component" if path.nil?
