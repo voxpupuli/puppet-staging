@@ -35,7 +35,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -f -L -o sample.tar.gz http://webserver/sample.tar.gz',
+        :command => 'curl  -f -L -o /opt/staging/spec/sample.tar.gz http://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/opt/staging/spec',
@@ -55,7 +55,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl -b -f -L -o sample.tar.gz http://webserver/sample.tar.gz',
+        :command => 'curl -b -f -L -o /opt/staging/spec/sample.tar.gz http://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/opt/staging/spec',
@@ -73,7 +73,7 @@ describe 'staging::file', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('/usr/local/sample.tar.gz').with( {
-        :command => 'curl  -f -L -o sample.tar.gz http://webserver/sample.tar.gz',
+        :command => 'curl  -f -L -o /usr/local/sample.tar.gz http://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/usr/local',
@@ -88,7 +88,7 @@ describe 'staging::file', :type => :define do
 
      it { should contain_file('/opt/staging') }
      it { should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-       :command => 'curl  -f -L -o sample.tar.gz https://webserver/sample.tar.gz',
+       :command => 'curl  -f -L -o /opt/staging/spec/sample.tar.gz https://webserver/sample.tar.gz',
        :path        => '/usr/local/bin:/usr/bin:/bin',
        :environment => nil,
        :cwd         => '/opt/staging/spec',
@@ -107,7 +107,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -f -L -o sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
+        :command => 'curl  -f -L -o /opt/staging/spec/sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/opt/staging/spec',
@@ -124,7 +124,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -o sample.tar.gz ftp://webserver/sample.tar.gz',
+        :command => 'curl  -o /opt/staging/spec/sample.tar.gz ftp://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/opt/staging/spec',
@@ -144,7 +144,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -o sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',
+        :command => 'curl  -o /opt/staging/spec/sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/opt/staging/spec',
