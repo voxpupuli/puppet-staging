@@ -108,7 +108,7 @@ define staging::file (
       }
     }
     default: {
-      fail("stage::file: do not recognize source ${source}.")
+      fail("staging::file: do not recognize source ${source}.")
     }
   }
 
