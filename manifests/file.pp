@@ -91,7 +91,7 @@ define staging::file (
       else         { $command = $http_get        }
       exec { $target_file:
         command   => $command,
-	unless	  => $get_unless,
+	unless    => $get_unless,
       }
     }
     /^https:\/\//: {
@@ -108,7 +108,7 @@ define staging::file (
       else               { $command = $ftp_get        }
       exec { $target_file:
         command     => $command,
-	unless	    => $get_unless,
+	unless      => $get_unless,
       }
     }
     default: {
