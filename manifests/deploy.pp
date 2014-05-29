@@ -25,7 +25,7 @@ define staging::deploy (
     environment => $environment,
     subdir      => $caller_module_name,
     timeout     => $timeout,
-    get_unless	=> $get_unless,
+    get_unless  => $get_unless,
   }
 
   staging::extract { $name:
