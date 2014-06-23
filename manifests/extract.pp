@@ -67,6 +67,8 @@ define staging::extract (
     } else {
       $strip_opt = " --strip=$strip"
     }
+  } else {
+    $strip_opt = ''
   }
 
   case $name {
