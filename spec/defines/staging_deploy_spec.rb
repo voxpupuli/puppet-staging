@@ -4,6 +4,7 @@ describe 'staging::deploy', :type => :define do
   # forcing a more sane caller_module_name to match real usage.
   let(:facts) { { :caller_module_name => 'spec',
                   :osfamily           => 'RedHat',
+                  :staging_http_get   => 'curl',
                   :path               => '/usr/local/bin:/usr/bin:/bin', } }
 
   describe 'when deploying tar.gz' do
