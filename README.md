@@ -9,35 +9,45 @@ WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should 
 ## Usage
 
 Specify a different default staging path (must be declared before using resource):
-
-    class { 'staging':
-      path  => '/var/staging',
-      owner => 'puppet',
-      group => 'puppet',
-    }
+```puppet
+class { 'staging':
+  path  => '/var/staging',
+  owner => 'puppet',
+  group => 'puppet',
+}
+```
 
 Staging files from various sources:
+```puppet
+staging::file { 'sample':
+  source => 'puppet://modules/staging/sample',
+}
 
-    staging::file { 'sample':
-      source => 'puppet://modules/staging/sample',
-    }
-
-    staging::file { 'apache-tomcat-6.0.35':
-      source => 'http://apache.cs.utah.edu/tomcat/tomcat-6/v6.0.35/bin/apache-tomcat-6.0.35.tar.gz',
-    }
-
+staging::file { 'apache-tomcat-6.0.35':
+  source => 'http://apache.cs.utah.edu/tomcat/tomcat-6/v6.0.35/bin/apache-tomcat-6.0.35.tar.gz',
+}
+```
 
 Staging and extracting files:
+```puppet
+staging::file { 'sample.tar.gz':
+  source => 'puppet:///modules/staging/sample.tar.gz'
+}
 
-    staging::file { 'sample.tar.gz':
-      source => 'puppet:///modules/staging/sample.tar.gz'
-    }
+staging::extract { 'sample.tar.gz':
+  target  => '/tmp/staging',
+  creates => '/tmp/staging/sample',
+  require => Staging::File['sample.tar.gz'],
+}
+```
 
-    staging::extract { 'sample.tar.gz':
-      target  => '/tmp/staging',
-      creates => '/tmp/staging/sample',
-      require => Staging::File['sample.tar.gz'],
-    }
+Deploying a file (combining staging and extract):
+```puppet
+staging::deploy { 'sample.tar.gz':
+  source => 'puppet:///modules/staging/sample.tar.gz',
+  target => '/usr/local',
+}
+```
 
 Staging files currently support the following source:
 
