@@ -12,7 +12,8 @@ define staging::deploy (
   $group        = undef, #: extract group as this group
   $creates      = undef, #: the file/folder created after extraction. if unspecified defaults to ${target}/${name}
   $unless       = undef, #: alternative way to conditionally extract file
-  $onlyif       = undef  #: alternative way to conditionally extract file
+  $onlyif       = undef, #: alternative way to conditionally extract file
+  $get_unless   = undef  #: We only get the file if...
 ) {
 
   staging::file { $name:
@@ -24,6 +25,7 @@ define staging::deploy (
     environment => $environment,
     subdir      => $caller_module_name,
     timeout     => $timeout,
+    get_unless  => $get_unless,
   }
 
   staging::extract { $name:

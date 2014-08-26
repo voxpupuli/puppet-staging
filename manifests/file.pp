@@ -17,6 +17,7 @@ define staging::file (
   $password    = undef, #: https or ftp user password or https certificate password
   $environment = undef, #: environment variable for settings such as http_proxy, https_proxy, of ftp_proxy
   $timeout     = undef, #: the the time to wait for the file transfer to complete
+  $get_unless  = undef, #: Only get the file if...
   $curl_option = undef, #: options to pass to curl
   $wget_option = undef, #: options to pass to wget
   $subdir      = $caller_module_name
@@ -90,6 +91,7 @@ define staging::file (
       else         { $command = $http_get        }
       exec { $target_file:
         command   => $command,
+        unless    => $get_unless,
       }
     }
     /^https:\/\//: {
@@ -98,6 +100,7 @@ define staging::file (
       else               { $command = $http_get        }
       exec { $target_file:
         command => $command,
+        unless  => $get_unless,
       }
     }
     /^ftp:\/\//: {
@@ -105,6 +108,7 @@ define staging::file (
       else               { $command = $ftp_get        }
       exec { $target_file:
         command     => $command,
+        unless      => $get_unless,
       }
     }
     /^s3:\/\//: {
