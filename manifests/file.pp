@@ -10,7 +10,7 @@
 #   resource as necessary.
 #
 define staging::file (
-  $source,              #: the source file location, supports local files, puppet://, http://, https://, ftp://
+  $source,              #: the source file location, supports local files, puppet://, http://, https://, ftp://, s3://
   $target      = undef, #: the target staging directory, if unspecified ${staging::path}/${caller_module_name}
   $username    = undef, #: https or ftp username
   $certificate = undef, #: https certificate file
@@ -105,6 +105,12 @@ define staging::file (
       else               { $command = $ftp_get        }
       exec { $target_file:
         command     => $command,
+      }
+    }
+    /^s3:\/\//: {
+      $command = "aws s3 cp ${source} ${target_file}"
+      exec { $target_file:
+        command   => $command,
       }
     }
     default: {
