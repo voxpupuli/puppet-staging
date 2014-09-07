@@ -2,6 +2,8 @@
 define staging::deploy (
   $source,               #: the source file location, supports local files, puppet://, http://, https://, ftp://
   $target,               #: the target extraction directory
+  $checksum = undef,
+  $checksum_algorithm = undef,
   $staging_path = undef, #: the staging location for compressed file. defaults to ${staging::path}/${caller_module_name}
   $username     = undef, #: https or ftp username
   $certificate  = undef, #: https certifcate file
@@ -24,6 +26,17 @@ define staging::deploy (
     environment => $environment,
     subdir      => $caller_module_name,
     timeout     => $timeout,
+  }
+
+  if $checksum != undef {
+    staging::verify { $name:
+      checksum    => $checksum,
+      algorithm   => $checksum_algorithm,
+      subdir      => $caller_module_name,
+      refreshonly => true,
+      subscribe   => Staging::File[$name],
+      before      => Staging::Extract[$name],
+    }
   }
 
   staging::extract { $name:
