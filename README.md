@@ -6,6 +6,8 @@ Manages staging directory, along with download/extraction of compressed files.
 
 WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should be available in Puppet 3.0.
 
+NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/nanliu/puppet-archive).
+
 ## Usage
 
 Specify a different default staging path (must be declared before using resource):
