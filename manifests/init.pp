@@ -18,11 +18,14 @@ class staging (
   $exec_path = $staging::params::exec_path #: executable default path
 ) inherits staging::params {
 
-  file { $path:
-    ensure => directory,
-    owner  => $owner,
-    group  => $group,
-    mode   => $mode,
+  # Resolve conflict with pe_staging
+  if !defined(File[$path]) {
+    file { $path:
+      ensure => directory,
+      owner  => $owner,
+      group  => $group,
+      mode   => $mode,
+    }
   }
 
 }
