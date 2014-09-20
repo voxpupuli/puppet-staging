@@ -96,6 +96,10 @@ define staging::extract (
       $command = "jar xf ${source_path}"
     }
 
+    /.Z$/: {
+      $command = "uncompress ${source_path}"
+    }
+
     default: {
       fail("staging::extract: unsupported file format ${name}.")
     }
