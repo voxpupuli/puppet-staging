@@ -106,6 +106,10 @@ define staging::extract (
       }
     }
 
+    /.Z$/: {
+      $command = "uncompress ${source_path}"
+    }
+
     default: {
       fail("staging::extract: unsupported file format ${name}.")
     }
