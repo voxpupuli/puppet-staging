@@ -46,7 +46,7 @@ define staging::file (
     cwd         => $staging_dir,
     timeout     => $timeout,
     logoutput   => on_failure,
-    unless      => "/bin/test -s ${target_file}",
+    unless      => "test -s ${target_file}",
   }
 
   case $::staging_http_get {
