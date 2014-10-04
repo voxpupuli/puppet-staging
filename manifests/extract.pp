@@ -100,6 +100,10 @@ define staging::extract (
       $command = "uncompress ${source_path}"
     }
 
+    /.gz$/: {
+      $command = "gunzip ${source_path}"
+    }
+
     default: {
       fail("staging::extract: unsupported file format ${name}.")
     }
