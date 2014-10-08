@@ -33,6 +33,8 @@ define staging::extract (
       $folder       = staging_parse($name, 'basename')
     }
     $creates_path = "${target}/${folder}"
+  } else {
+    $creates_path = undef
   }
 
   if scope_defaults('Exec','path') {
