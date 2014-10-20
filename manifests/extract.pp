@@ -1,15 +1,16 @@
 # Define resource to extract files from staging directories to target directories.
 define staging::extract (
-  $target,              #: the target extraction directory
-  $source      = undef, #: the source compression file, supports tar, tar.gz, zip, war
-  $creates     = undef, #: the file created after extraction. if unspecified defaults ${staging::path}/${caller_module_name}/${name} ${target}/${name}
-  $unless      = undef, #: alternative way to conditionally check whether to extract file.
-  $onlyif      = undef, #: alternative way to conditionally check whether to extract file.
-  $user        = undef, #: extract file as this user.
-  $group       = undef, #:  extract file as this group.
-  $environment = undef, #: environment variables.
-  $strip       = undef, #: extract file with the --strip=X option. Only works with GNU tar.
-  $subdir      = $caller_module_name #: subdir per module in staging directory.
+  $target,                #: the target extraction directory
+  $create_target = false, #: whether to create the target directory
+  $source        = undef, #: the source compression file, supports tar, tar.gz, zip, war
+  $creates       = undef, #: the file created after extraction. if unspecified defaults ${staging::path}/${caller_module_name}/${name} ${target}/${name}
+  $unless        = undef, #: alternative way to conditionally check whether to extract file.
+  $onlyif        = undef, #: alternative way to conditionally check whether to extract file.
+  $user          = undef, #: extract file as this user.
+  $group         = undef, #:  extract file as this group.
+  $environment   = undef, #: environment variables.
+  $strip         = undef, #: extract file with the --strip=X option. Only works with GNU tar.
+  $subdir        = $caller_module_name #: subdir per module in staging directory.
 ) {
 
   include staging
@@ -100,6 +101,15 @@ define staging::extract (
 
     default: {
       fail("staging::extract: unsupported file format ${name}.")
+    }
+  }
+
+  if $create_target {
+    file { $target:
+      ensure => directory,
+      owner  => $user,
+      group  => $group,
+      before => Exec["extract ${name}"]
     }
   }
 
