@@ -101,4 +101,12 @@ describe 'staging::extract', :type => :define do
 
      it { expect { should contain_exec("exec sample.zzz") }.to raise_error(Puppet::Error) }
   end
+
+  describe 'when create_target is true' do
+    let(:title) { 'sample.war'}
+    let(:params) { { :target => '/opt/test',
+                     :create_target => true } }
+    it { should contain_file('/opt/test') }
+  end
+
 end
