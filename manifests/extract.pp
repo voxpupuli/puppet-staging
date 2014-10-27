@@ -67,7 +67,7 @@ define staging::extract (
       warning('strip is only supported with GNU tar, ignoring the parameter')
       $strip_opt = ''
     } else {
-      $strip_opt = " --strip=$strip"
+      $strip_opt = " --strip=${strip}"
     }
   } else {
     $strip_opt = ''
