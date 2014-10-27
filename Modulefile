@@ -1,5 +1,5 @@
 name    'nanliu-staging'
-version '1.0.0'
+version '1.0.2'
 source  'git@github.com:nanliu/puppet-staging.git'
 author  'nanliu'
 license 'Apache License Version 2.0'
