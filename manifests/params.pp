@@ -22,5 +22,12 @@ class staging::params {
       $mode      = '0660'
       $exec_path = $::path
     }
+    'FreeBSD': {
+      $path      = '/var/tmp/staging'
+      $owner     = '0'
+      $group     = '0'
+      $mode      = '0755'
+      $exec_path = '/usr/local/bin:/usr/bin:/bin'
+    }
   }
 }
