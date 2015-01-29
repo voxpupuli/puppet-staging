@@ -83,6 +83,13 @@ define staging::file (
         replace => false,
       }
     }
+    /^[A-Za-z]:/: {
+      file { $target_file:
+        source             => $source,
+        replace            => false,
+        source_permissions => ignore,
+      }
+    }
     /^puppet:\/\//: {
       file { $target_file:
         source  => $source,

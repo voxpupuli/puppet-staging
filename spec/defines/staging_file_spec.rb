@@ -30,6 +30,20 @@ describe 'staging::file', :type => :define do
     }
   end
 
+  describe 'when deploying via Windows local' do
+    let(:title) { 'sample.tar.gz' }
+    let(:params) { {
+      :source => 'S:/nfs/sample.tar.gz',
+      :target => '/usr/local/sample.tar.gz',
+    } }
+
+    it {
+      should contain_file('/opt/staging')
+      should contain_file('/usr/local/sample.tar.gz')
+      should_not contain_exec('/opt/staging/spec/sample.tar.gz')
+    }
+  end
+
   describe 'when deploying via http' do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { :source => 'http://webserver/sample.tar.gz' } }
