@@ -2,9 +2,12 @@ require 'spec_helper'
 describe 'staging::file', :type => :define do
 
   # forcing a more sane caller_module_name to match real usage.
-  let(:facts) { { :caller_module_name => 'spec',
-                  :osfamily           => 'RedHat',
-                  :staging_http_get   => 'curl' } }
+  let(:facts) { {
+    :caller_module_name => 'spec',
+    :osfamily           => 'RedHat',
+    :staging_http_get   => 'curl',
+    :puppetversion      => Puppet.version,
+  } }
 
   describe 'when deploying via puppet' do
     let(:title) { 'sample.tar.gz' }
