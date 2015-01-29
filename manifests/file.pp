@@ -83,6 +83,20 @@ define staging::file (
         replace => false,
       }
     }
+    /^[A-Za-z]:/: {
+      if versioncmp($::puppetversion, '3.4.0') >= 0 {
+        file { $target_file:
+          source             => $source,
+          replace            => false,
+          source_permissions => ignore,
+        }
+      } else {
+        file { $target_file:
+          source             => $source,
+          replace            => false,
+        }
+      }
+    }
     /^puppet:\/\//: {
       file { $target_file:
         source  => $source,
