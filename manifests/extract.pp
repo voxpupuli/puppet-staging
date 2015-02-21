@@ -9,7 +9,9 @@ define staging::extract (
   $group       = undef, #:  extract file as this group.
   $environment = undef, #: environment variables.
   $strip       = undef, #: extract file with the --strip=X option. Only works with GNU tar.
-  $subdir      = $caller_module_name #: subdir per module in staging directory.
+  $subdir      = $caller_module_name, #: subdir per module in staging directory.
+  $path        = $staging::path,
+
 ) {
 
   include staging
@@ -50,7 +52,7 @@ define staging::extract (
     }
   } else {
     Exec{
-      path        => $::path,
+      path        => $path,
       cwd         => $target,
       user        => $user,
       group       => $group,
