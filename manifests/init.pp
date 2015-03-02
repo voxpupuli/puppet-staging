@@ -17,6 +17,13 @@ class staging (
   $mode      = $staging::params::mode,     #: staging directory permission
   $exec_path = $staging::params::exec_path #: executable default path
 ) inherits staging::params {
+  if ($::kernel == 'windows') {
+    $7zip_install_dir = "c:/opt/7zip"
+    
+    class { "7zip" :
+      install_directory => "$7zip_install_dir"
+    }
+  }
 
   # Resolve conflict with pe_staging
   if !defined(File[$path]) {

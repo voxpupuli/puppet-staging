@@ -9,6 +9,7 @@ define staging::extract (
   $group       = undef, #:  extract file as this group.
   $environment = undef, #: environment variables.
   $strip       = undef, #: extract file with the --strip=X option. Only works with GNU tar.
+  $flatten     = false, #: discard the directory structure and dump all files in one directory
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
@@ -91,7 +92,19 @@ define staging::extract (
     }
 
     /.zip$/: {
-      $command = "unzip ${source_path}"
+	  if ($::kernel == 'windows') {
+	    if $flatten {
+	      $command = "7z.exe e -y ${source_path}"
+		} else {
+		  $command = "7z.exe x -y ${source_path}"
+		}
+	  } else {
+		if $flatten {
+          $command = "unzip -j ${source_path}"
+        } else {
+          $command = "unzip ${source_path}"
+        }
+	  }
     }
 
     /(.war|.jar)$/: {
@@ -103,7 +116,15 @@ define staging::extract (
     }
   }
 
-  exec { "extract ${name}":
-    command => $command,
+  if ($::kernel == 'windows') {
+    exec { "extract ${name}":
+      command => $command,
+      path => $staging::7zip_install_dir,
+      require => Class["7zip"]
+    }
+  } else {
+    exec { "extract ${name}":
+      command => $command
+    }
   }
 }
