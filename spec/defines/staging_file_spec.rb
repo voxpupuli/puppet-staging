@@ -184,7 +184,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'sftp sftp:sftp@webserver:/sample.tar.gz /opt/staging/spec/sample.tar.gz',
+        :command => 'sftp -o StrictHostKeyChecking=no sftp:sftp@webserver:/sample.tar.gz /opt/staging/spec/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
         :cwd         => '/opt/staging/spec',
