@@ -57,6 +57,7 @@ Staging files currently support the following source:
 * puppet://
 * ftp://
 * s3:// (requires aws cli to be installed and configured.)
+* sftp:// (make sure the url is in format sftp://user@host/<path> and ssh keys etc are setup properly )
 * local (though this doesn't serve any real purpose.)
 
 ## Contributor
