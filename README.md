@@ -57,7 +57,7 @@ Staging files currently support the following source:
 * puppet://
 * ftp://
 * s3:// (requires aws cli to be installed and configured.)
-* sftp:// (make sure the url is in format sftp://user:passwd@host/<path> or ssh keys etc are setup properly. This will work on most Non-windows machines as is. For Windows machines make sure cygwin is installed on the node and correctly added to the PATH variable. )
+* sftp:// (make sure the url is in format sftp://user:passwd@host:/absolute/path/to/the/source/file or ssh keys etc are setup properly. This will work on most Non-windows machines as is. For Windows machines make sure cygwin is installed on the node and correctly added to the PATH variable. )
 * local (though this doesn't serve any real purpose.)
 
 ## Contributor
@@ -69,3 +69,4 @@ Staging files currently support the following source:
 * Justin Clayton
 * Owen Jacobson
 * Reid Vandewiele
+* Pankaj Agarwal
