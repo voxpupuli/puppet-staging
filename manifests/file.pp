@@ -71,8 +71,8 @@ define staging::file (
     'powershell':{
       $http_get           = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.DownloadFile('${source}','${target_file}')\""
       $ftp_get            = $http_get
-      $http_get_password  = "powershell.exe -Command \"\$wc = (New-Object System.Net.WebClient);\$wc.Credentials = New-Object System.Net.NetworkCredential('${username}','${password}');\$wc.DownloadFile(${source},${target_file})\""
-      $ftp_get_password   = $http_get_password
+      $http_get_passwd  = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.Credentials = New-Object System.Net.NetworkCredential('${username}','${password}');\$wc.DownloadFile(${source},${target_file})\""
+      $ftp_get_passwd   = $http_get_passwd
     }
   }
 
