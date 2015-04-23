@@ -2,9 +2,10 @@ require 'spec_helper'
 describe 'staging::extract', :type => :define do
 
   # forcing a more sane caller_module_name to match real usage.
-  let(:facts) { { :caller_module_name => 'spec',
-                  :osfamily           => 'RedHat',
-                  :path               => '/usr/local/bin:/usr/bin:/bin' } }
+  let(:facts) {{
+    :osfamily => 'RedHat',
+    :path     => '/usr/local/bin:/usr/bin:/bin'
+  }}
 
   describe 'when deploying tar.gz' do
     let(:title) { 'sample.tar.gz' }
@@ -13,7 +14,7 @@ describe 'staging::extract', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tar.gz').with({
-        :command => 'tar xzf /opt/staging/spec/sample.tar.gz',
+        :command => 'tar xzf /opt/staging//sample.tar.gz',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -29,7 +30,7 @@ describe 'staging::extract', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tar.gz').with({
-        :command => 'tar xzf /opt/staging/spec/sample.tar.gz --strip=1',
+        :command => 'tar xzf /opt/staging//sample.tar.gz --strip=1',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -43,7 +44,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip /opt/staging/spec/sample.zip',
+        :command => 'unzip /opt/staging//sample.zip',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -58,7 +59,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip /opt/staging/spec/sample.zip',
+        :command => 'unzip /opt/staging//sample.zip',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -72,7 +73,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.war').with({
-        :command => 'jar xf /opt/staging/spec/sample.war',
+        :command => 'jar xf /opt/staging//sample.war',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -87,7 +88,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.war').with({
-        :command => 'jar xf /opt/staging/spec/sample.war',
+        :command => 'jar xf /opt/staging//sample.war',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'

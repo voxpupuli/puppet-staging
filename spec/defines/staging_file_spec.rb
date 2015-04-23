@@ -2,12 +2,11 @@ require 'spec_helper'
 describe 'staging::file', :type => :define do
 
   # forcing a more sane caller_module_name to match real usage.
-  let(:facts) { {
-    :caller_module_name => 'spec',
-    :osfamily           => 'RedHat',
-    :staging_http_get   => 'curl',
-    :puppetversion      => Puppet.version,
-  } }
+  let(:facts) {{
+    :osfamily         => 'RedHat',
+    :staging_http_get => 'curl',
+    :puppetversion    => Puppet.version,
+  }}
 
   describe 'when deploying via puppet' do
     let(:title) { 'sample.tar.gz' }
@@ -15,8 +14,8 @@ describe 'staging::file', :type => :define do
 
     it {
       should contain_file('/opt/staging')
-      should contain_file('/opt/staging/spec/sample.tar.gz')
-      should_not contain_exec('/opt/staging/spec/sample.tar.gz')
+      should contain_file('/opt/staging//sample.tar.gz')
+      should_not contain_exec('/opt/staging//sample.tar.gz')
     }
   end
 
@@ -29,7 +28,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_file('/usr/local/sample.tar.gz')
-      should_not contain_exec('/opt/staging/spec/sample.tar.gz')
+      should_not contain_exec('/opt/staging//sample.tar.gz')
     }
   end
 
@@ -43,7 +42,7 @@ describe 'staging::file', :type => :define do
     it {
       should contain_file('/opt/staging')
       should contain_file('/usr/local/sample.tar.gz')
-      should_not contain_exec('/opt/staging/spec/sample.tar.gz')
+      should_not contain_exec('/opt/staging//sample.tar.gz')
     }
   end
 
@@ -53,12 +52,12 @@ describe 'staging::file', :type => :define do
 
     it {
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -f -L -o /opt/staging/spec/sample.tar.gz http://webserver/sample.tar.gz',
+      should contain_exec('/opt/staging//sample.tar.gz').with( {
+        :command => 'curl  -f -L -o /opt/staging//sample.tar.gz http://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
-        :cwd         => '/opt/staging/spec',
-        :creates     => '/opt/staging/spec/sample.tar.gz',
+        :cwd         => '/opt/staging/',
+        :creates     => '/opt/staging//sample.tar.gz',
         :logoutput   => 'on_failure',
       })
     }
@@ -73,12 +72,12 @@ describe 'staging::file', :type => :define do
 
     it {
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl -b -f -L -o /opt/staging/spec/sample.tar.gz http://webserver/sample.tar.gz',
+      should contain_exec('/opt/staging//sample.tar.gz').with( {
+        :command => 'curl -b -f -L -o /opt/staging//sample.tar.gz http://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
-        :cwd         => '/opt/staging/spec',
-        :creates     => '/opt/staging/spec/sample.tar.gz',
+        :cwd         => '/opt/staging/',
+        :creates     => '/opt/staging//sample.tar.gz',
         :logoutput   => 'on_failure',
       })
     }
@@ -110,12 +109,12 @@ describe 'staging::file', :type => :define do
      let(:params) { { :source => 'https://webserver/sample.tar.gz' } }
 
      it { should contain_file('/opt/staging') }
-     it { should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-       :command => 'curl  -f -L -o /opt/staging/spec/sample.tar.gz https://webserver/sample.tar.gz',
+     it { should contain_exec('/opt/staging//sample.tar.gz').with( {
+       :command => 'curl  -f -L -o /opt/staging//sample.tar.gz https://webserver/sample.tar.gz',
        :path        => '/usr/local/bin:/usr/bin:/bin',
        :environment => nil,
-       :cwd         => '/opt/staging/spec',
-       :creates     => '/opt/staging/spec/sample.tar.gz',
+       :cwd         => '/opt/staging/',
+       :creates     => '/opt/staging//sample.tar.gz',
        :logoutput   => 'on_failure',
      }) }
   end
@@ -129,12 +128,12 @@ describe 'staging::file', :type => :define do
 
     it {
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -f -L -o /opt/staging/spec/sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
+      should contain_exec('/opt/staging//sample.tar.gz').with( {
+        :command => 'curl  -f -L -o /opt/staging//sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
-        :cwd         => '/opt/staging/spec',
-        :creates     => '/opt/staging/spec/sample.tar.gz',
+        :cwd         => '/opt/staging/',
+        :creates     => '/opt/staging//sample.tar.gz',
         :logoutput   => 'on_failure',
       })
     }
@@ -146,12 +145,12 @@ describe 'staging::file', :type => :define do
 
     it {
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -o /opt/staging/spec/sample.tar.gz ftp://webserver/sample.tar.gz',
+      should contain_exec('/opt/staging//sample.tar.gz').with( {
+        :command => 'curl  -o /opt/staging//sample.tar.gz ftp://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
-        :cwd         => '/opt/staging/spec',
-        :creates     => '/opt/staging/spec/sample.tar.gz',
+        :cwd         => '/opt/staging/',
+        :creates     => '/opt/staging//sample.tar.gz',
         :logoutput   => 'on_failure',
       })
     }
@@ -166,12 +165,12 @@ describe 'staging::file', :type => :define do
 
     it {
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
-        :command => 'curl  -o /opt/staging/spec/sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',
+      should contain_exec('/opt/staging//sample.tar.gz').with( {
+        :command => 'curl  -o /opt/staging//sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',
         :path        => '/usr/local/bin:/usr/bin:/bin',
         :environment => nil,
-        :cwd         => '/opt/staging/spec',
-        :creates     => '/opt/staging/spec/sample.tar.gz',
+        :cwd         => '/opt/staging/',
+        :creates     => '/opt/staging//sample.tar.gz',
         :logoutput   => 'on_failure',
       })
     }
