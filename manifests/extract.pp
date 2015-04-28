@@ -98,6 +98,14 @@ define staging::extract (
       $command = "jar xf ${source_path}"
     }
 
+    /.deb$/: {
+      if $::osfamily == 'Debian' {
+        $command = "dpkg --extract ${source_path} ."
+      } else {
+        fail('The .deb filetype is only supported on Debian family systems.')
+      }
+    }
+
     default: {
       fail("staging::extract: unsupported file format ${name}.")
     }
