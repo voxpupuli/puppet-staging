@@ -63,7 +63,7 @@ define staging::extract (
   }
 
   if $strip {
-    if $::osfamily == 'Solaris' or $name !~ /(.tar|.tgz|.tar.gz|.tar.bz2)$/ {
+    if $::osfamily == 'Solaris' or $name !~ /(.tar|.tgz|.tar.gz|.tbz2|.tar.bz2)$/ {
       warning('strip is only supported with GNU tar, ignoring the parameter')
       $strip_opt = ''
     } else {
@@ -86,7 +86,7 @@ define staging::extract (
       }
     }
 
-    /.tar.bz2$/: {
+    /(.tbz2|.tar.bz2)$/: {
       $command = "tar xjf ${source_path}${strip_opt}"
     }
 
