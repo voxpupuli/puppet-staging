@@ -86,7 +86,7 @@ define staging::extract (
       }
     }
 
-    /.tar.bz2$/: {
+    /(.tbz2|.tar.bz2)$/: {
       $command = "tar xjf ${source_path}${strip_opt}"
     }
 
