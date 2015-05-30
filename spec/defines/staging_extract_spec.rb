@@ -111,6 +111,34 @@ describe 'staging::extract', :type => :define do
     }
   end
 
+  describe 'when deploying deb on a Debian family system' do
+    let(:facts) {{
+      :osfamily => 'Debian',
+      :path     => '/usr/local/bin:/usr/bin:/bin'
+    }}
+    let(:title) { 'sample.deb' }
+    let(:params) { { :target => '/opt' } }
+
+    it { should contain_file('/opt/staging')
+      should contain_exec('extract sample.deb').with({
+        :command => 'dpkg --extract /opt/staging//sample.deb .',
+        :path    => '/usr/local/bin:/usr/bin:/bin',
+        :cwd     => '/opt',
+        :creates => '/opt/sample'
+      })
+    }
+  end
+
+  describe 'when deploying deb on a non-Debian family system' do
+    let(:title) { 'sample.deb' }
+    let(:params) { { :target => '/opt' } }
+
+    it 'should fail' do
+      should compile.and_raise_error(/The .deb filetype is only supported on Debian family systems./)
+    end
+
+  end
+
   describe 'when deploying unknown' do
      let(:title) { 'sample.zzz'}
      let(:params) { { :target => '/opt' } }
