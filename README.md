@@ -2,11 +2,11 @@
 
 Manages staging directory, along with download/extraction of compressed files.
 
-[![Build Status](https://secure.travis-ci.org/nanliu/puppet-staging.png?branch=master)](http://travis-ci.org/nanliu/puppet-staging)
+[![Build Status](https://secure.travis-ci.org/puppet-community/puppet-staging.png?branch=master)](http://travis-ci.org/puppet-community/puppet-staging)
 
 WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should be available in Puppet 3.0.
 
-NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/nanliu/puppet-archive).
+NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/puppet-community/puppet-archive).
 
 ## Usage
 
@@ -58,6 +58,10 @@ Staging files currently support the following source:
 * ftp://
 * s3:// (requires aws cli to be installed and configured.)
 * local (though this doesn't serve any real purpose.)
+
+## Author
+
+Primarily authored by Nan Liu
 
 ## Contributor
 
