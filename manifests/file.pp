@@ -92,8 +92,8 @@ define staging::file (
         }
       } else {
         file { $target_file:
-          source             => $source,
-          replace            => false,
+          source  => $source,
+          replace => false,
         }
       }
     }
