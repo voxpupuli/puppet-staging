@@ -24,6 +24,34 @@ describe 'staging::deploy', type: :define do
     }
   end
 
+  describe 'when deploying tar.gz with full path in title and no source' do
+    let(:title) { 'puppet:///modules/staging/sample.tar.gz' }
+    let(:params) {{
+      target: '/usr/local'
+    }}
+
+    it { should contain_file('/opt/staging') }
+    it { should contain_file('/opt/staging//sample.tar.gz') }
+    it {
+      should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging//sample.tar.gz',
+                                                        path: '/usr/local/bin:/usr/bin:/bin',
+                                                        cwd: '/usr/local',
+                                                        creates: '/usr/local/sample')
+    }
+  end
+
+  describe 'fail when deploying tar.gz with filename in title and no source' do
+    let(:title) { 'sample.tar.gz' }
+    let(:params) {{
+      target: '/usr/local'
+    }}
+
+    it do
+      expect { should contain_exec('extract sample.tar.gz')
+      }.to raise_error(Puppet::Error, %r{do not recognize source})
+    end
+  end
+
   describe 'when deploying tar.gz with strip' do
     let(:title) { 'sample.tar.gz' }
     let(:params) {{
