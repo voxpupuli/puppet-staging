@@ -55,15 +55,17 @@ define staging::file (
 
   case $::staging_http_get {
     'curl', default: {
-      $http_get        = "curl ${curl_option} -f -L -o ${target_file} ${quoted_source}"
-      $http_get_passwd = "curl ${curl_option} -f -L -o ${target_file} -u ${username}:${password} ${quoted_source}"
-      $http_get_cert   = "curl ${curl_option} -f -L -o ${target_file} -E ${certificate}:${password} ${quoted_source}"
-      $ftp_get         = "curl ${curl_option} -o ${target_file} ${quoted_source}"
-      $ftp_get_passwd  = "curl ${curl_option} -o ${target_file} -u ${username}:${password} ${quoted_source}"
+      $quoted_credentials = shellquote("${username}:${password}")
+      $http_get           = "curl ${curl_option} -f -L -o ${target_file} ${quoted_source}"
+      $http_get_passwd    = "curl ${curl_option} -f -L -o ${target_file} -u ${quoted_credentials} ${quoted_source}"
+      $http_get_cert      = "curl ${curl_option} -f -L -o ${target_file} -E ${certificate}:${password} ${quoted_source}"
+      $ftp_get            = "curl ${curl_option} -o ${target_file} ${quoted_source}"
+      $ftp_get_passwd     = "curl ${curl_option} -o ${target_file} -u ${username}:${password} ${quoted_source}"
     }
     'wget': {
+      $quoted_password = shellquote($password)
       $http_get        = "wget ${wget_option} -O ${target_file} ${quoted_source}"
-      $http_get_passwd = "wget ${wget_option} -O ${target_file} --user=${username} --password=${password} ${quoted_source}"
+      $http_get_passwd = "wget ${wget_option} -O ${target_file} --user=${username} --password=${quoted_password} ${quoted_source}"
       $http_get_cert   = "wget ${wget_option} -O ${target_file} --user=${username} --certificate=${certificate} ${quoted_source}"
       $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
