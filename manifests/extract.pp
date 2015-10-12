@@ -9,6 +9,7 @@ define staging::extract (
   $group       = undef, #:  extract file as this group.
   $environment = undef, #: environment variables.
   $strip       = undef, #: extract file with the --strip=X option. Only works with GNU tar.
+  $unzip_opts  = '',    #: additional options to pass the unzip command.
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
@@ -91,7 +92,7 @@ define staging::extract (
     }
 
     /.zip$/: {
-      $command = "unzip ${source_path}"
+      $command = "unzip ${unzip_opts} ${source_path}"
     }
 
     /(.war|.jar)$/: {

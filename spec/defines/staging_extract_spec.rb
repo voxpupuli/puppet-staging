@@ -59,7 +59,24 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip /opt/staging//sample.zip',
+        :command => 'unzip  /opt/staging//sample.zip',
+        :path    => '/usr/local/bin:/usr/bin:/bin',
+        :cwd     => '/opt',
+        :creates => '/opt/sample'
+      })
+    }
+  end
+
+  describe 'when deploying zip with unzip_opts' do
+    let(:title) { 'sample.zip' }
+    let(:params) do
+      { :target     => '/opt',
+        :unzip_opts => '-o -f',
+      }
+    end
+    it { should contain_file('/opt/staging')
+      should contain_exec('extract sample.zip').with({
+        :command => 'unzip -o -f /opt/staging//sample.zip',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -74,7 +91,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip /opt/staging//sample.zip',
+        :command => 'unzip  /opt/staging//sample.zip',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -85,7 +102,6 @@ describe 'staging::extract', :type => :define do
   describe 'when deploying war' do
     let(:title) { 'sample.war' }
     let(:params) { { :target => '/opt' } }
-
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.war').with({
         :command => 'jar xf /opt/staging//sample.war',
@@ -96,11 +112,14 @@ describe 'staging::extract', :type => :define do
     }
   end
 
-  describe 'when deploying war with strip (noop)' do
+  describe 'when deploying war with strip (noop) and unzip_opts (noop)' do
     let(:title) { 'sample.war' }
-    let(:params) { { :target => '/opt',
-                     :strip  => 1, } }
-
+    let(:params) do
+      { :target     => '/opt',
+        :strip      => 1,
+        :unzip_opts => '-o -f'
+      }
+    end
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.war').with({
         :command => 'jar xf /opt/staging//sample.war',
