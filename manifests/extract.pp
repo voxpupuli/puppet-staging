@@ -92,7 +92,7 @@ define staging::extract (
     }
 
     /.zip$/: {
-      $command = "unzip ${unzip_opts} ${source_path}"
+      $command = "unzip ${unzip_opts} ${source_path} -d ${target}"
     }
 
     /(.war|.jar)$/: {

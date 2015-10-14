@@ -59,7 +59,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip  /opt/staging//sample.zip',
+        :command => 'unzip  /opt/staging//sample.zip -d /opt',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -76,7 +76,7 @@ describe 'staging::extract', :type => :define do
     end
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip -o -f /opt/staging//sample.zip',
+        :command => 'unzip -o -f /opt/staging//sample.zip -d /opt',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'
@@ -91,7 +91,7 @@ describe 'staging::extract', :type => :define do
 
     it { should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip  /opt/staging//sample.zip',
+        :command => 'unzip  /opt/staging//sample.zip -d /opt',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/opt',
         :creates => '/opt/sample'

@@ -59,7 +59,7 @@ describe 'staging::deploy', :type => :define do
     it { should contain_file('/opt/staging//sample.zip') }
     it do
       should contain_exec('extract sample.zip').with({
-        :command => 'unzip -o -f /opt/staging//sample.zip',
+        :command => 'unzip -o -f /opt/staging//sample.zip -d /usr/local',
         :path    => '/usr/local/bin:/usr/bin:/bin',
         :cwd     => '/usr/local',
         :creates => '/usr/local/sample'
