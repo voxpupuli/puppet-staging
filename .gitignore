@@ -1,6 +1,6 @@
-.bundle
-.pkg
-.ruby-version
+.*.sw?
+pkg
+spec/fixtures
+.rspec_system
 .vagrant
 Gemfile.lock
-spec/fixtures
