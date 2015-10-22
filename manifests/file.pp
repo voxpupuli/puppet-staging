@@ -103,11 +103,11 @@ define staging::file (
         }
       } else {
         file { $target_file:
-          source   => $source,
-          owner    => $owner,
-          group    => $group,
-          mode     => $mode,
-          replace  => false,
+          source  => $source,
+          owner   => $owner,
+          group   => $group,
+          mode    => $mode,
+          replace => false,
         }
       }
     }
