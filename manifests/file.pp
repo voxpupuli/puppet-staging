@@ -21,6 +21,9 @@ define staging::file (
   $wget_option = undef, #: options to pass to wget
   $tries       = undef, #: amount of retries for the file transfer when non transient connection errors exist
   $try_sleep   = undef, #: time to wait between retries for the file transfer
+  $owner       = undef, #: file owner in the local filesystem for the target
+  $group       = undef, #: file group in the local filesystem for the target
+  $mode        = undef, #: file mode in the local filesystem for the target
   $subdir      = $caller_module_name
 ) {
 
@@ -73,8 +76,8 @@ define staging::file (
     'powershell':{
       $http_get           = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.DownloadFile('${source}','${target_file}')\""
       $ftp_get            = $http_get
-      $http_get_passwd  = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.Credentials = New-Object System.Net.NetworkCredential('${username}','${password}');\$wc.DownloadFile('${source}','${target_file}')\""
-      $ftp_get_passwd   = $http_get_passwd
+      $http_get_passwd    = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.Credentials = New-Object System.Net.NetworkCredential('${username}','${password}');\$wc.DownloadFile('${source}','${target_file}')\""
+      $ftp_get_passwd     = $http_get_passwd
     }
   }
 
@@ -82,6 +85,9 @@ define staging::file (
     /^\//: {
       file { $target_file:
         source  => $source,
+        owner   => $owner,
+        group   => $group,
+        mode    => $mode,
         replace => false,
       }
     }
@@ -89,19 +95,28 @@ define staging::file (
       if versioncmp($::puppetversion, '3.4.0') >= 0 {
         file { $target_file:
           source             => $source,
+          owner              => $owner,
+          group              => $group,
+          mode               => $mode,
           replace            => false,
           source_permissions => ignore,
         }
       } else {
         file { $target_file:
-          source  => $source,
-          replace => false,
+          source   => $source,
+          owner    => $owner,
+          group    => $group,
+          mode     => $mode,
+          replace  => false,
         }
       }
     }
     /^puppet:\/\//: {
       file { $target_file:
         source  => $source,
+        owner   => $owner,
+        group   => $group,
+        mode    => $mode,
         replace => false,
       }
     }
@@ -135,6 +150,16 @@ define staging::file (
     }
     default: {
       fail("staging::file: do not recognize source ${source}.")
+    }
+  }
+
+  if $source =~ /^(?:https?|ftp|s3):\/\// {
+    file { $target_file:
+      ensure  => file,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
+      require => Exec[$target_file],
     }
   }
 

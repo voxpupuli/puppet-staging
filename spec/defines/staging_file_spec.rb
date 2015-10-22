@@ -60,6 +60,38 @@ describe 'staging::file', :type => :define do
         :creates     => '/opt/staging//sample.tar.gz',
         :logoutput   => 'on_failure',
       })
+      should contain_file('/opt/staging//sample.tar.gz').with( {
+        :owner => nil,
+        :group => nil,
+        :mode  => nil,
+      })
+    }
+  end
+
+  describe 'when deploying via http with file parameters' do
+    let(:title) { 'sample.tar.gz' }
+    let(:params) { { 
+      :source => 'http://webserver/sample.tar.gz',
+      :owner  => 'root',
+      :group  => 'root',
+      :mode   => '0644',
+    } }
+
+    it {
+      should contain_file('/opt/staging')
+      should contain_exec('/opt/staging//sample.tar.gz').with( {
+        :command => 'curl  -f -L -o /opt/staging//sample.tar.gz http://webserver/sample.tar.gz',
+        :path        => '/usr/local/bin:/usr/bin:/bin',
+        :environment => nil,
+        :cwd         => '/opt/staging/',
+        :creates     => '/opt/staging//sample.tar.gz',
+        :logoutput   => 'on_failure',
+      })
+      should contain_file('/opt/staging//sample.tar.gz').with( {
+        :owner => 'root',
+        :group => 'root',
+        :mode  => '0644',
+      })
     }
   end
 
