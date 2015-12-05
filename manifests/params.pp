@@ -29,5 +29,12 @@ class staging::params {
       $mode      = '0755'
       $exec_path = '/usr/local/bin:/usr/bin:/bin'
     }
+    'OpenBSD': {
+      $path      = '/var/staging'
+      $owner     = '0'
+      $group     = '0'
+      $mode      = '0755'
+      $exec_path = '/usr/local/bin:/usr/bin:/bin'
+    }
   }
 }
