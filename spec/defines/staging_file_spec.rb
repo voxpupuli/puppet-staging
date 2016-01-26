@@ -176,4 +176,21 @@ describe 'staging::file', :type => :define do
     }
   end
 
+  describe 'when deploying via sftp' do
+    let(:title) { 'sample.tar.gz' }
+    let(:params) { { :source => 'sftp://sftp:sftp@webserver:/sample.tar.gz' } }
+
+    it {
+      should contain_file('/opt/staging')
+      should contain_exec('/opt/staging/spec/sample.tar.gz').with( {
+        :command => 'sftp -o StrictHostKeyChecking=no sftp:sftp@webserver:/sample.tar.gz /opt/staging/spec/sample.tar.gz',
+        :path        => '/usr/local/bin:/usr/bin:/bin',
+        :environment => nil,
+        :cwd         => '/opt/staging/spec',
+        :creates     => '/opt/staging/spec/sample.tar.gz',
+        :logoutput   => 'on_failure',
+      })
+    }
+  end
+
 end
