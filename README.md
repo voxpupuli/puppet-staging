@@ -2,11 +2,11 @@
 
 Manages staging directory, along with download/extraction of compressed files.
 
-[![Build Status](https://secure.travis-ci.org/puppet-community/puppet-staging.png?branch=master)](http://travis-ci.org/puppet-community/puppet-staging)
+[![Build Status](https://secure.travis-ci.org/voxpupuli/puppet-staging.png?branch=master)](http://travis-ci.org/voxpupuli/puppet-staging)
 
 WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should be available in Puppet 3.0.
 
-NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/puppet-community/puppet-archive).
+NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/voxpupuli/puppet-archive).
 
 ## Usage
 
