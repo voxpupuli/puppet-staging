@@ -1,1 +1,1 @@
-include staging
+include ::staging

@@ -1,8 +1,11 @@
-# Staging module for Puppet
+# Puppet Stagin
+
+[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge score](https://img.shields.io/puppetforge/f/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-staging.png)](https://travis-ci.org/voxpupuli/puppet-staging)
 
 Manages staging directory, along with download/extraction of compressed files.
-
-[![Build Status](https://secure.travis-ci.org/voxpupuli/puppet-staging.png?branch=master)](http://travis-ci.org/voxpupuli/puppet-staging)
 
 WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should be available in Puppet 3.0.
 
@@ -63,7 +66,7 @@ Staging files currently support the following source:
 
 Primarily authored by Nan Liu
 
-## Contributor
+## Contributors
 
 * Adrien Thebo
 * gizero

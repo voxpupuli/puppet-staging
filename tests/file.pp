@@ -1,6 +1,6 @@
 $caller_module_name = 'demo'
 
-class { 'staging':
+class { '::staging':
   path => '/tmp/staging',
 }
 

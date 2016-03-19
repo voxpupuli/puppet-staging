@@ -13,7 +13,7 @@ define staging::extract (
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
-  include staging
+  include ::staging
 
   if $source {
     $source_path = $source
