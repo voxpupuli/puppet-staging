@@ -1,6 +1,5 @@
-Facter.add("staging_http_get") do
+Facter.add('staging_http_get') do
   setcode do
-
     fact = nil
 
     which = lambda do |cmd|
@@ -17,13 +16,12 @@ Facter.add("staging_http_get") do
       result
     end
 
-    ['powershell', 'curl', 'wget'].each do |cmd|
+    %w(powershell curl wget).each do |cmd|
       available = which.call(cmd)
       fact = available ? cmd : nil
       break if fact
     end
 
     fact
-
   end
 end
