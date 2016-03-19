@@ -1,6 +1,11 @@
-.bundle
-.pkg
-.ruby-version
-.vagrant
+pkg/
 Gemfile.lock
-spec/fixtures
+vendor/
+spec/fixtures/
+.vagrant/
+.bundle/
+coverage/
+log/
+.idea/
+*.iml
+.*.sw

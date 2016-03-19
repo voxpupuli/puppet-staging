@@ -24,7 +24,7 @@ define staging::file (
   $subdir      = $caller_module_name
 ) {
 
-  include staging
+  include ::staging
 
   $quoted_source = shellquote($source)
 
