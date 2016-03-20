@@ -1,4 +1,4 @@
-# Puppet Stagin
+# Puppet Staging
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
 [![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
