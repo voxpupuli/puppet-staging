@@ -135,7 +135,7 @@ describe 'staging::extract', type: :define do
     let(:title) { 'sample.deb' }
     let(:params) { { target: '/opt' } }
 
-    it 'should fail' do
+    it 'fails' do
       should compile.and_raise_error(/The .deb filetype is only supported on Debian family systems./)
     end
   end
