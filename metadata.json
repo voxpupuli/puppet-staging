@@ -3,7 +3,6 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "4",
         "5",
         "6",
         "7"
@@ -12,7 +11,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "4",
         "5",
         "6",
         "7"
@@ -21,7 +19,6 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "4",
         "5",
         "6",
         "7"
@@ -30,7 +27,6 @@
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
-        "4",
         "5",
         "6",
         "7"
@@ -46,14 +42,16 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "10.04",
-        "12.04"
+        "12.04",
+        "14.04",
+        "16.04"
       ]
     },
     {
@@ -73,7 +71,8 @@
         "Server 2012",
         "Server 2012 R2",
         "7",
-        "8"
+        "8",
+        "10"
       ]
     },
     {
@@ -95,14 +94,15 @@
       "version_requirement": ">=2.7.0"
     }
   ],
-  "name": "nanliu-staging",
-  "version": "1.0.4",
-  "source": "git://github.com/nanliu/puppet-staging",
-  "author": "Nan Liu",
-  "license": "Apache-2.0",
-  "summary": "Compressed file staging and deployment",
+  "name": "puppet-staging",
   "description": "Manages compressed file staging and deployment.",
-  "project_page": "https://github.com/nanliu/puppet-staging",
+  "version": "1.0.7-rc0",
+  "author": "voxpupuli",
+  "summary": "Compressed file staging and deployment",
+  "license": "Apache-2.0",
+  "source": "https://github.com/voxpupuli/puppet-staging",
+  "project_page": "https://github.com/voxpupuli/puppet-staging",
+  "issues_url": "https://github.com/voxpupuli/puppet-staging/issues",
   "dependencies": [
 
   ]

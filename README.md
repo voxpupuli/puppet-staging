@@ -1,12 +1,15 @@
-# Staging module for Puppet
+# Puppet Staging
+
+[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge score](https://img.shields.io/puppetforge/f/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-staging.png)](https://travis-ci.org/voxpupuli/puppet-staging)
 
 Manages staging directory, along with download/extraction of compressed files.
 
-[![Build Status](https://secure.travis-ci.org/puppet-community/puppet-staging.png?branch=master)](http://travis-ci.org/puppet-community/puppet-staging)
-
 WARNING: Version 0.2.0 no longer uses hiera functions. The same behavior should be available in Puppet 3.0.
 
-NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/puppet-community/puppet-archive).
+NOTE: Version 1.0.0 will be the last feature release. New functionality such as checksum will be implemented in a type/provider module [puppet-archive](https://www.github.com/voxpupuli/puppet-archive).
 
 ## Usage
 
@@ -63,7 +66,7 @@ Staging files currently support the following source:
 
 Primarily authored by Nan Liu
 
-## Contributor
+## Contributors
 
 * Adrien Thebo
 * gizero

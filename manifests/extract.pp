@@ -13,7 +13,7 @@ define staging::extract (
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
-  include staging
+  include ::staging
 
   if $source {
     $source_path = $source
@@ -105,6 +105,10 @@ define staging::extract (
       } else {
         fail('The .deb filetype is only supported on Debian family systems.')
       }
+    }
+
+    /.Z$/: {
+      $command = "uncompress ${source_path}"
     }
 
     default: {
