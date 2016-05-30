@@ -70,10 +70,10 @@ describe 'staging::file', type: :define do
   describe 'when deploying via http with file parameters' do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { 
-      :source => 'http://webserver/sample.tar.gz',
-      :owner  => 'root',
-      :group  => 'root',
-      :mode   => '0644',
+      source: 'http://webserver/sample.tar.gz',
+      owner: 'root',
+      group: 'root',
+      mode: '0644',
     } }
 
     it {
