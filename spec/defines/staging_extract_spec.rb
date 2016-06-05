@@ -62,8 +62,9 @@ describe 'staging::extract', type: :define do
   describe 'when deploying zip with unzip_opts' do
     let(:title) { 'sample.zip' }
     let(:params) do
-      { target: '/opt',
-        unzip_opts: '-o -f',
+      {
+        target: '/opt',
+        unzip_opts: '-o -f'
       }
     end
     it { should contain_file('/opt/staging')
@@ -76,9 +77,12 @@ describe 'staging::extract', type: :define do
 
   describe 'when deploying zip with strip (noop)' do
     let(:title) { 'sample.zip' }
-    let(:params) { { target: '/opt',
-                     strip: 1, }
-    }
+    let(:params) do
+      {
+        target: '/opt',
+        strip: 1,
+      }
+    end
 
     it { should contain_file('/opt/staging')
          should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
@@ -102,7 +106,8 @@ describe 'staging::extract', type: :define do
   describe 'when deploying war with strip (noop) and unzip_opts (noop)' do
     let(:title) { 'sample.war' }
     let(:params) do
-      { target: '/opt',
+      {
+        target: '/opt',
         strip: 1,
         unzip_opts: '-o -f'
       }
@@ -116,10 +121,12 @@ describe 'staging::extract', type: :define do
   end
 
   describe 'when deploying deb on a Debian family system' do
-    let(:facts) {{
-      osfamily: 'Debian',
-      path: '/usr/local/bin:/usr/bin:/bin'
-    }}
+    let(:facts) do
+      {
+        osfamily: 'Debian',
+        path: '/usr/local/bin:/usr/bin:/bin'
+      }
+    end
     let(:title) { 'sample.deb' }
     let(:params) { { target: '/opt' } }
 
@@ -133,10 +140,11 @@ describe 'staging::extract', type: :define do
 
   describe 'when deploying deb on a non-Debian family system' do
     let(:title) { 'sample.deb' }
-    let(:params) { { target: '/opt' } }
-
+    let(:params) do
+      { target: '/opt' }
+    end
     it 'fails' do
-      should compile.and_raise_error(/The .deb filetype is only supported on Debian family systems./)
+      should compile.and_raise_error(%r{The .deb filetype is only supported on Debian family systems.})
     end
   end
 

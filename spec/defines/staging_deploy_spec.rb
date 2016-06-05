@@ -47,8 +47,7 @@ describe 'staging::deploy', type: :define do
     let(:params) do
       { source: 'puppet:///modules/staging/sample.tar.gz',
         target: '/usr/local',
-        unzip_opts: '-o -f'
-      }
+        unzip_opts: '-o -f' }
     end
     it { should contain_file('/opt/staging') }
     it { should contain_file('/opt/staging//sample.zip') }

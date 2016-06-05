@@ -20,10 +20,12 @@ describe 'staging::file', type: :define do
 
   describe 'when deploying via local' do
     let(:title) { 'sample.tar.gz' }
-    let(:params) { { source: '/nfs/sample.tar.gz',
-                     target: '/usr/local/sample.tar.gz',
-    } }
-
+    let :params do
+      {
+        source: '/nfs/sample.tar.gz',
+        target: '/usr/local/sample.tar.gz'
+      }
+    end
     it {
       should contain_file('/opt/staging')
       should contain_file('/usr/local/sample.tar.gz')
@@ -80,12 +82,14 @@ describe 'staging::file', type: :define do
 
   describe 'when deploying via http with parameters' do
     let(:title) { 'sample.tar.gz' }
-    let(:params) { { source: 'http://webserver/sample.tar.gz',
-                     target: '/usr/local/sample.tar.gz',
-                     tries: '10',
-                     try_sleep: '6',
-    } }
-
+    let :params do
+      {
+        source: 'http://webserver/sample.tar.gz',
+        target: '/usr/local/sample.tar.gz',
+        tries: '10',
+        try_sleep: '6'
+      }
+    end
     it { should contain_file('/opt/staging')
          should contain_exec('/usr/local/sample.tar.gz').with(command: 'curl  -f -L -o /usr/local/sample.tar.gz http://webserver/sample.tar.gz',
                                                               path: '/usr/local/bin:/usr/bin:/bin',
@@ -113,11 +117,13 @@ describe 'staging::file', type: :define do
 
   describe 'when deploying via https with parameters' do
     let(:title) { 'sample.tar.gz' }
-    let(:params) { { source: 'https://webserver/sample.tar.gz',
-                     username: 'puppet',
-                     password: 'puppet',
-    } }
-
+    let :params do
+      {
+        source: 'https://webserver/sample.tar.gz',
+        username: 'puppet',
+        password: 'puppet'
+      }
+    end
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging//sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
@@ -146,11 +152,13 @@ describe 'staging::file', type: :define do
 
   describe 'when deploying via ftp with parameters' do
     let(:title) { 'sample.tar.gz' }
-    let(:params) { { source: 'ftp://webserver/sample.tar.gz',
-                     username: 'puppet',
-                     password: 'puppet',
-    } }
-
+    let :params do
+      {
+        source: 'ftp://webserver/sample.tar.gz',
+        username: 'puppet',
+        password: 'puppet'
+      }
+    end
     it {
       should contain_file('/opt/staging')
       should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -o /opt/staging//sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',

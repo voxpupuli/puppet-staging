@@ -21,7 +21,7 @@ describe 'the staging parser function' do
   end
 
   it "raises a ParseError if 'source' doesn't have a URI path component" do
-    -> { scope.function_staging_parse(['uri:without-path']) }.should(raise_error(Puppet::ParseError, /has no URI 'path' component/))
+    -> { scope.function_staging_parse(['uri:without-path']) }.should(raise_error(Puppet::ParseError, %r{has no URI 'path' component}))
   end
 
   it 'returns the filename by default' do

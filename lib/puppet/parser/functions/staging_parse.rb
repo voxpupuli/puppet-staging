@@ -4,7 +4,7 @@ module Puppet::Parser::Functions
   newfunction(:staging_parse, type: :rvalue, doc: <<-EOS
 Parse filepath to retrieve information about the file.
     EOS
-  ) do |arguments|
+             ) do |arguments|
     raise(Puppet::ParseError, 'staging_parse(): Wrong number of arguments ' \
       "given (#{arguments.size} for 1, 2, 3)") if arguments.empty? || arguments.size > 3
 
