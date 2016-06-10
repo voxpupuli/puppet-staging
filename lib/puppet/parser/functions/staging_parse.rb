@@ -1,7 +1,7 @@
 require 'uri'
 
 module Puppet::Parser::Functions
-  newfunction(:staging_parse, type: :rvalue, doc: <<-EOS
+  newfunction(:staging_parse, :type => :rvalue, :doc => <<-EOS
 Parse filepath to retrieve information about the file.
     EOS
              ) do |arguments|
