@@ -25,9 +25,9 @@ describe 'the scope_defaults function' do
 
   it 'returns false for resource without default attributes' do
     if scope.respond_to? :define_settings
-      scope.define_settings('Exec', Puppet::Parser::Resource::Param.new(name: :path, value: '/bin'))
+      scope.define_settings('Exec', Puppet::Parser::Resource::Param.new(:name => :path, :value => '/bin'))
     else
-      scope.setdefaults('Exec', Puppet::Parser::Resource::Param.new(name: :path, value: '/bin'))
+      scope.setdefaults('Exec', Puppet::Parser::Resource::Param.new(:name => :path, :value => '/bin'))
     end
     result = scope.function_scope_defaults(%w(Exec foo))
     result.should(eq(false))
@@ -35,9 +35,9 @@ describe 'the scope_defaults function' do
 
   it 'returns true for resource with default attributes' do
     if scope.respond_to? :define_settings
-      scope.define_settings('Exec', Puppet::Parser::Resource::Param.new(name: :path, value: '/bin'))
+      scope.define_settings('Exec', Puppet::Parser::Resource::Param.new(:name => :path, :value => '/bin'))
     else
-      scope.setdefaults('Exec', Puppet::Parser::Resource::Param.new(name: :path, value: '/bin'))
+      scope.setdefaults('Exec', Puppet::Parser::Resource::Param.new(:name => :path, :value => '/bin'))
     end
     result = scope.function_scope_defaults(%w(Exec path))
     result.should(eq(true))

@@ -1,5 +1,5 @@
 module Puppet::Parser::Functions
-  newfunction(:scope_defaults, type: :rvalue, doc: <<-EOS
+  newfunction(:scope_defaults, :type => :rvalue, :doc => <<-EOS
 Determine if specified resource defaults have a attribute defined in
 current scope.
 EOS
