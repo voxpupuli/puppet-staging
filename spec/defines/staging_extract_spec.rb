@@ -22,7 +22,7 @@ describe 'staging::extract', type: :define do
   describe 'when deploying tar.gz with strip' do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { target: '/opt',
-                     strip: 1, }
+                     strip: 1 }
     }
 
     it {
@@ -80,7 +80,7 @@ describe 'staging::extract', type: :define do
     let(:params) do
       {
         target: '/opt',
-        strip: 1,
+        strip: 1
       }
     end
 

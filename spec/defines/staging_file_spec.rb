@@ -4,7 +4,7 @@ describe 'staging::file', type: :define do
   let(:facts) {{
     osfamily: 'RedHat',
     staging_http_get: 'curl',
-    puppetversion: Puppet.version,
+    puppetversion: Puppet.version
   }}
 
   describe 'when deploying via puppet' do
@@ -37,7 +37,7 @@ describe 'staging::file', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { {
       source: 'S:/nfs/sample.tar.gz',
-      target: '/usr/local/sample.tar.gz',
+      target: '/usr/local/sample.tar.gz'
     } }
 
     it {
@@ -66,7 +66,7 @@ describe 'staging::file', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { {
       source: 'http://webserver/sample.tar.gz',
-      curl_option: '-b',
+      curl_option: '-b'
     } }
 
     it {

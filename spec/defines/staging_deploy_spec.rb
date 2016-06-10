@@ -4,7 +4,7 @@ describe 'staging::deploy', type: :define do
     caller_module_name: '',
     osfamily: 'RedHat',
     staging_http_get: 'curl',
-    path: '/usr/local/bin:/usr/bin:/bin',
+    path: '/usr/local/bin:/usr/bin:/bin'
   }}
 
   describe 'when deploying tar.gz' do
