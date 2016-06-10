@@ -105,7 +105,7 @@
   ],
   "name": "puppet-staging",
   "description": "Manages compressed file staging and deployment.",
-  "version": "1.0.7-rc0",
+  "version": "2.0.0",
   "author": "voxpupuli",
   "summary": "Compressed file staging and deployment",
   "license": "Apache-2.0",
