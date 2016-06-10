@@ -1,62 +1,66 @@
 require 'spec_helper'
 describe 'staging::extract', type: :define do
   # forcing a more sane caller_module_name to match real usage.
-  let(:facts) {{
-    osfamily: 'RedHat',
-    path: '/usr/local/bin:/usr/bin:/bin'
-  }}
+  let(:facts) do
+    {
+      osfamily: 'RedHat',
+      path: '/usr/local/bin:/usr/bin:/bin'
+    }
+  end
 
   describe 'when deploying tar.gz' do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { target: '/opt' } }
 
-    it {
+    it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging//sample.tar.gz',
                                                         path: '/usr/local/bin:/usr/bin:/bin',
                                                         cwd: '/opt',
                                                         creates: '/opt/sample')
-    }
+    end
   end
 
   describe 'when deploying tar.gz with strip' do
     let(:title) { 'sample.tar.gz' }
-    let(:params) { { target: '/opt',
-                     strip: 1 }
-    }
+    let(:params) do
+      { target: '/opt',
+        strip: 1 }
+    end
 
-    it {
+    it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging//sample.tar.gz --strip=1',
                                                         path: '/usr/local/bin:/usr/bin:/bin',
                                                         cwd: '/opt',
                                                         creates: '/opt/sample')
-    }
+    end
   end
 
   describe 'when deploying tbz2' do
     let(:title) { 'sample.tbz2' }
     let(:params) { { target: '/opt' } }
 
-    it {
+    it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tbz2').with(command: 'tar xjf /opt/staging//sample.tbz2',
                                                       path: '/usr/local/bin:/usr/bin:/bin',
                                                       cwd: '/opt',
                                                       creates: '/opt/sample')
-    }
+    end
   end
 
   describe 'when deploying zip' do
     let(:title) { 'sample.zip' }
     let(:params) { { target: '/opt' } }
 
-    it { should contain_file('/opt/staging')
-         should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
-                                                        path: '/usr/local/bin:/usr/bin:/bin',
-                                                        cwd: '/opt',
-                                                        creates: '/opt/sample')
-    }
+    it do
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
+                                                     path: '/usr/local/bin:/usr/bin:/bin',
+                                                     cwd: '/opt',
+                                                     creates: '/opt/sample')
+    end
   end
 
   describe 'when deploying zip with unzip_opts' do
@@ -67,12 +71,13 @@ describe 'staging::extract', type: :define do
         unzip_opts: '-o -f'
       }
     end
-    it { should contain_file('/opt/staging')
-         should contain_exec('extract sample.zip').with(command: 'unzip -o -f /opt/staging//sample.zip',
-                                                        path: '/usr/local/bin:/usr/bin:/bin',
-                                                        cwd: '/opt',
-                                                        creates: '/opt/sample')
-    }
+    it do
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.zip').with(command: 'unzip -o -f /opt/staging//sample.zip',
+                                                     path: '/usr/local/bin:/usr/bin:/bin',
+                                                     cwd: '/opt',
+                                                     creates: '/opt/sample')
+    end
   end
 
   describe 'when deploying zip with strip (noop)' do
@@ -84,23 +89,25 @@ describe 'staging::extract', type: :define do
       }
     end
 
-    it { should contain_file('/opt/staging')
-         should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
-                                                        path: '/usr/local/bin:/usr/bin:/bin',
-                                                        cwd: '/opt',
-                                                        creates: '/opt/sample')
-    }
+    it do
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
+                                                     path: '/usr/local/bin:/usr/bin:/bin',
+                                                     cwd: '/opt',
+                                                     creates: '/opt/sample')
+    end
   end
 
   describe 'when deploying war' do
     let(:title) { 'sample.war' }
     let(:params) { { target: '/opt' } }
-    it { should contain_file('/opt/staging')
-         should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging//sample.war',
-                                                        path: '/usr/local/bin:/usr/bin:/bin',
-                                                        cwd: '/opt',
-                                                        creates: '/opt/sample')
-    }
+    it do
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging//sample.war',
+                                                     path: '/usr/local/bin:/usr/bin:/bin',
+                                                     cwd: '/opt',
+                                                     creates: '/opt/sample')
+    end
   end
 
   describe 'when deploying war with strip (noop) and unzip_opts (noop)' do
@@ -112,12 +119,13 @@ describe 'staging::extract', type: :define do
         unzip_opts: '-o -f'
       }
     end
-    it { should contain_file('/opt/staging')
-         should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging//sample.war',
-                                                        path: '/usr/local/bin:/usr/bin:/bin',
-                                                        cwd: '/opt',
-                                                        creates: '/opt/sample')
-    }
+    it do
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging//sample.war',
+                                                     path: '/usr/local/bin:/usr/bin:/bin',
+                                                     cwd: '/opt',
+                                                     creates: '/opt/sample')
+    end
   end
 
   describe 'when deploying deb on a Debian family system' do
@@ -130,12 +138,13 @@ describe 'staging::extract', type: :define do
     let(:title) { 'sample.deb' }
     let(:params) { { target: '/opt' } }
 
-    it { should contain_file('/opt/staging')
-         should contain_exec('extract sample.deb').with(command: 'dpkg --extract /opt/staging//sample.deb .',
-                                                        path: '/usr/local/bin:/usr/bin:/bin',
-                                                        cwd: '/opt',
-                                                        creates: '/opt/sample')
-    }
+    it do
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.deb').with(command: 'dpkg --extract /opt/staging//sample.deb .',
+                                                     path: '/usr/local/bin:/usr/bin:/bin',
+                                                     cwd: '/opt',
+                                                     creates: '/opt/sample')
+    end
   end
 
   describe 'when deploying deb on a non-Debian family system' do
