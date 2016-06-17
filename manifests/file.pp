@@ -1,7 +1,7 @@
 # #### Overview:
 #
 # Define resource to retrieve files to staging directories. It is
-# intententionally not replacing files, as these intend to be large binaries
+# intentionally not replacing files, as these intend to be large binaries
 # that are versioned.
 #
 # #### Notes:
@@ -16,7 +16,7 @@ define staging::file (
   $certificate = undef, #: https certificate file
   $password    = undef, #: https or ftp user password or https certificate password
   $environment = undef, #: environment variable for settings such as http_proxy, https_proxy, of ftp_proxy
-  $timeout     = undef, #: the the time to wait for the file transfer to complete
+  $timeout     = undef, #: the time to wait for the file transfer to complete
   $curl_option = undef, #: options to pass to curl
   $wget_option = undef, #: options to pass to wget
   $tries       = undef, #: amount of retries for the file transfer when non transient connection errors exist
