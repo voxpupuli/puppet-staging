@@ -1,3 +1,9 @@
+## 2016/07/09 - Release 2.0.1
+
+* Fix some typos/spelling
+* modulesync with latest Vox Pupuli defaults
+
+
 ## 2016/06/10 - Release 2.0.0
 
 * Drop of Ruby1.8 support!
