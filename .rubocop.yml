@@ -258,11 +258,11 @@ Style/Documentation:
 Style/DefWithParentheses:
   Enabled: true
 
-Style/DeprecatedHashMethods:
+Style/PreferredHashMethods:
   Enabled: true
 
 Style/DotPosition:
-  Enabled: true
+  EnforcedStyle: trailing
 
 Style/DoubleNegation:
   Enabled: true
