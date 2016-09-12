@@ -63,23 +63,21 @@ describe 'staging::file', type: :define do
                                                               cwd: '/opt/staging/',
                                                               creates: '/opt/staging//sample.tar.gz',
                                                               logoutput: 'on_failure')
-      should contain_file('/opt/staging//sample.tar.gz').with({
-                                                               owner: nil,
-                                                               group: nil,
-                                                               mode: nil
-                                                              })
+      should contain_file('/opt/staging//sample.tar.gz').with(owner: nil,
+                                                              group: nil,
+                                                              mode: nil)
     end
   end
 
   describe 'when deploying via http with file parameters' do
     let(:title) { 'sample.tar.gz' }
-    let(:params) do 
-      { 
+    let(:params) do
+      {
         source: 'http://webserver/sample.tar.gz',
         owner: 'root',
         group: 'root',
         mode: '0644'
-      } 
+      }
     end
 
     it do
@@ -90,11 +88,9 @@ describe 'staging::file', type: :define do
                                                               cwd: '/opt/staging/',
                                                               creates: '/opt/staging//sample.tar.gz',
                                                               logoutput: 'on_failure')
-      should contain_file('/opt/staging//sample.tar.gz').with({
-                                                               owner: 'root',
-                                                               group: 'root',
-                                                               mode: '0644'
-                                                              })
+      should contain_file('/opt/staging//sample.tar.gz').with(owner: 'root',
+                                                              group: 'root',
+                                                              mode: '0644')
     end
   end
 
