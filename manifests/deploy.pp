@@ -1,7 +1,7 @@
 # The define resource extracts compressed file to a staging location.
 define staging::deploy (
-  $source,               #: the source file location, supports local files, puppet://, http://, https://, ftp://
   $target,               #: the target extraction directory
+  $source       = undef, #: the source file location, supports local files, puppet://, http://, https://, ftp://
   $staging_path = undef, #: the staging location for compressed file. defaults to ${staging::path}/${caller_module_name}
   $username     = undef, #: https or ftp username
   $certificate  = undef, #: https certifcate file
@@ -17,8 +17,21 @@ define staging::deploy (
   $onlyif       = undef  #: alternative way to conditionally extract file
 ) {
 
-  staging::file { $name:
-    source      => $source,
+  # grab file name if path was passed in
+  if $name =~ /.*\/(.*)/ {
+    $file_name = $1
+  } else {
+    $file_name = $name
+  }
+
+  if $source {
+    $source_path = $source
+  } else {
+    $source_path = $name
+  }
+
+  staging::file { $file_name:
+    source      => $source_path,
     target      => $staging_path,
     username    => $username,
     certificate => $certificate,
@@ -28,7 +41,7 @@ define staging::deploy (
     timeout     => $timeout,
   }
 
-  staging::extract { $name:
+  staging::extract { $file_name:
     target      => $target,
     source      => $staging_path,
     user        => $user,
@@ -40,7 +53,7 @@ define staging::deploy (
     creates     => $creates,
     unless      => $unless,
     onlyif      => $onlyif,
-    require     => Staging::File[$name],
+    require     => Staging::File[$file_name],
   }
 
 }

@@ -82,6 +82,15 @@
         "6.1",
         "7.1"
       ]
+    },
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5.7",
+        "5.8",
+        "5.9",
+        "6.0"
+      ]
     }
   ],
   "requirements": [
@@ -96,7 +105,7 @@
   ],
   "name": "puppet-staging",
   "description": "Manages compressed file staging and deployment.",
-  "version": "1.0.7-rc0",
+  "version": "2.0.2-rc0",
   "author": "voxpupuli",
   "summary": "Compressed file staging and deployment",
   "license": "Apache-2.0",
