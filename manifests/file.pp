@@ -35,11 +35,8 @@ define staging::file (
     $staging_dir = "${staging::path}/${subdir}"
     $target_file = "${staging_dir}/${name}"
 
-    if ! defined(File[$staging_dir]) {
-      file { $staging_dir:
-        ensure=>directory,
-      }
-    }
+    ensure_resource('file', $staging_dir, { ensure => directory } )
+
   }
 
   Exec {
