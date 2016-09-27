@@ -14,6 +14,7 @@ describe 'staging::file', type: :define do
     let(:params) { { source: 'puppet:///modules/staging/sample.tar.gz' } }
 
     it do
+      should compile
       should contain_file('/opt/staging')
       should contain_file('/opt/staging//sample.tar.gz')
       should_not contain_exec('/opt/staging//sample.tar.gz')
