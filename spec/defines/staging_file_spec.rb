@@ -177,4 +177,16 @@ describe 'staging::file', type: :define do
                                                               logoutput: 'on_failure')
     end
   end
+  describe 'when base class parameters have been given' do
+    let(:title) { 'sample.tar.gz' }
+    let(:pre_condition) { 'class { "staging": mode => "0777", owner => "someuser" }' }
+    let(:params) do
+      {
+        source: 'http://webserver/sample.tar.gz'
+      }
+    end
+    it do
+      should compile.with_all_deps
+    end
+  end
 end
