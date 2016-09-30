@@ -18,6 +18,7 @@ describe 'staging::deploy', type: :define do
       }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it { should contain_file('/opt/staging') }
     it { should contain_file('/opt/staging/sample.tar.gz') }
     it do
@@ -36,6 +37,7 @@ describe 'staging::deploy', type: :define do
       }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it { should contain_file('/opt/staging') }
     it { should contain_file('/opt/staging/sample.tar.gz') }
     it do
@@ -71,6 +73,7 @@ describe 'staging::deploy', type: :define do
       }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it { should contain_file('/opt/staging') }
     it { should contain_file('/opt/staging/sample.tar.gz') }
     it do
@@ -88,6 +91,7 @@ describe 'staging::deploy', type: :define do
         target: '/usr/local',
         unzip_opts: '-o -f' }
     end
+    it { is_expected.to compile.with_all_deps }
     it { should contain_file('/opt/staging') }
     it { should contain_file('/opt/staging/sample.zip') }
     it do

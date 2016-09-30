@@ -12,6 +12,7 @@ describe 'staging::extract', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { target: '/opt' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging/sample.tar.gz',
@@ -28,6 +29,7 @@ describe 'staging::extract', type: :define do
         strip: 1 }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging/sample.tar.gz --strip=1',
@@ -41,6 +43,7 @@ describe 'staging::extract', type: :define do
     let(:title) { 'sample.tbz2' }
     let(:params) { { target: '/opt' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.tbz2').with(command: 'tar xjf /opt/staging/sample.tbz2',
@@ -54,6 +57,7 @@ describe 'staging::extract', type: :define do
     let(:title) { 'sample.zip' }
     let(:params) { { target: '/opt' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging/sample.zip',
@@ -71,6 +75,7 @@ describe 'staging::extract', type: :define do
         unzip_opts: '-o -f'
       }
     end
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with(command: 'unzip -o -f /opt/staging/sample.zip',
@@ -89,6 +94,7 @@ describe 'staging::extract', type: :define do
       }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging/sample.zip',
@@ -101,6 +107,7 @@ describe 'staging::extract', type: :define do
   describe 'when deploying war' do
     let(:title) { 'sample.war' }
     let(:params) { { target: '/opt' } }
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging/sample.war',
@@ -119,6 +126,7 @@ describe 'staging::extract', type: :define do
         unzip_opts: '-o -f'
       }
     end
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging/sample.war',
@@ -138,6 +146,7 @@ describe 'staging::extract', type: :define do
     let(:title) { 'sample.deb' }
     let(:params) { { target: '/opt' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('extract sample.deb').with(command: 'dpkg --extract /opt/staging/sample.deb .',
