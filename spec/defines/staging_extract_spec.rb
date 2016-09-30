@@ -14,7 +14,7 @@ describe 'staging::extract', type: :define do
 
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging//sample.tar.gz',
+      should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging/sample.tar.gz',
                                                         path: '/usr/local/bin:/usr/bin:/bin',
                                                         cwd: '/opt',
                                                         creates: '/opt/sample')
@@ -30,7 +30,7 @@ describe 'staging::extract', type: :define do
 
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging//sample.tar.gz --strip=1',
+      should contain_exec('extract sample.tar.gz').with(command: 'tar xzf /opt/staging/sample.tar.gz --strip=1',
                                                         path: '/usr/local/bin:/usr/bin:/bin',
                                                         cwd: '/opt',
                                                         creates: '/opt/sample')
@@ -43,7 +43,7 @@ describe 'staging::extract', type: :define do
 
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.tbz2').with(command: 'tar xjf /opt/staging//sample.tbz2',
+      should contain_exec('extract sample.tbz2').with(command: 'tar xjf /opt/staging/sample.tbz2',
                                                       path: '/usr/local/bin:/usr/bin:/bin',
                                                       cwd: '/opt',
                                                       creates: '/opt/sample')
@@ -56,7 +56,7 @@ describe 'staging::extract', type: :define do
 
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
+      should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging/sample.zip',
                                                      path: '/usr/local/bin:/usr/bin:/bin',
                                                      cwd: '/opt',
                                                      creates: '/opt/sample')
@@ -73,7 +73,7 @@ describe 'staging::extract', type: :define do
     end
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.zip').with(command: 'unzip -o -f /opt/staging//sample.zip',
+      should contain_exec('extract sample.zip').with(command: 'unzip -o -f /opt/staging/sample.zip',
                                                      path: '/usr/local/bin:/usr/bin:/bin',
                                                      cwd: '/opt',
                                                      creates: '/opt/sample')
@@ -91,7 +91,7 @@ describe 'staging::extract', type: :define do
 
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging//sample.zip',
+      should contain_exec('extract sample.zip').with(command: 'unzip  /opt/staging/sample.zip',
                                                      path: '/usr/local/bin:/usr/bin:/bin',
                                                      cwd: '/opt',
                                                      creates: '/opt/sample')
@@ -103,7 +103,7 @@ describe 'staging::extract', type: :define do
     let(:params) { { target: '/opt' } }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging//sample.war',
+      should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging/sample.war',
                                                      path: '/usr/local/bin:/usr/bin:/bin',
                                                      cwd: '/opt',
                                                      creates: '/opt/sample')
@@ -121,7 +121,7 @@ describe 'staging::extract', type: :define do
     end
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging//sample.war',
+      should contain_exec('extract sample.war').with(command: 'jar xf /opt/staging/sample.war',
                                                      path: '/usr/local/bin:/usr/bin:/bin',
                                                      cwd: '/opt',
                                                      creates: '/opt/sample')
@@ -140,7 +140,7 @@ describe 'staging::extract', type: :define do
 
     it do
       should contain_file('/opt/staging')
-      should contain_exec('extract sample.deb').with(command: 'dpkg --extract /opt/staging//sample.deb .',
+      should contain_exec('extract sample.deb').with(command: 'dpkg --extract /opt/staging/sample.deb .',
                                                      path: '/usr/local/bin:/usr/bin:/bin',
                                                      cwd: '/opt',
                                                      creates: '/opt/sample')

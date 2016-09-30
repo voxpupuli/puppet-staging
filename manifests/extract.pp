@@ -18,7 +18,11 @@ define staging::extract (
   if $source {
     $source_path = $source
   } else {
-    $source_path = "${staging::path}/${subdir}/${name}"
+    if $subdir == '' { # eg when $caller_module_name is blank
+      $source_path = "${staging::_path}/${name}"
+    } else {
+      $source_path = "${staging::_path}/${subdir}/${name}"
+    }
   }
 
   # Use user supplied creates path, set default value if creates, unless or
