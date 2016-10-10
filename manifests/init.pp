@@ -18,9 +18,12 @@ class staging (
   $exec_path = $staging::params::exec_path #: executable default path
 ) inherits staging::params {
 
+  # Strip off any trailing '/'
+  $_path = regsubst($path,'/$','')
+
   # Resolve conflict with pe_staging
-  if !defined(File[$path]) {
-    file { $path:
+  if !defined(File[$_path]) {
+    file { $_path:
       ensure => directory,
       owner  => $owner,
       group  => $group,

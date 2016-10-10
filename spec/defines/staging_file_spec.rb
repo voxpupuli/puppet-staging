@@ -13,10 +13,11 @@ describe 'staging::file', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { source: 'puppet:///modules/staging/sample.tar.gz' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_file('/opt/staging//sample.tar.gz')
-      should_not contain_exec('/opt/staging//sample.tar.gz')
+      should contain_file('/opt/staging/sample.tar.gz')
+      should_not contain_exec('/opt/staging/sample.tar.gz')
     end
   end
 
@@ -28,10 +29,11 @@ describe 'staging::file', type: :define do
         target: '/usr/local/sample.tar.gz'
       }
     end
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_file('/usr/local/sample.tar.gz')
-      should_not contain_exec('/opt/staging//sample.tar.gz')
+      should_not contain_exec('/opt/staging/sample.tar.gz')
     end
   end
 
@@ -44,10 +46,11 @@ describe 'staging::file', type: :define do
       }
     end
 
+    # it { is_expected.to compile.with_all_deps } # This test will fail unless we're running the tests on Windows.
     it do
       should contain_file('/opt/staging')
       should contain_file('/usr/local/sample.tar.gz')
-      should_not contain_exec('/opt/staging//sample.tar.gz')
+      should_not contain_exec('/opt/staging/sample.tar.gz')
     end
   end
 
@@ -55,17 +58,18 @@ describe 'staging::file', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { source: 'http://webserver/sample.tar.gz' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging//sample.tar.gz http://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
-      should contain_file('/opt/staging//sample.tar.gz').with(owner: nil,
-                                                              group: nil,
-                                                              mode: nil)
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging/sample.tar.gz http://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
+      should contain_file('/opt/staging/sample.tar.gz').with(owner: nil,
+                                                             group: nil,
+                                                             mode: nil)
     end
   end
 
@@ -80,17 +84,18 @@ describe 'staging::file', type: :define do
       }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging//sample.tar.gz http://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
-      should contain_file('/opt/staging//sample.tar.gz').with(owner: 'root',
-                                                              group: 'root',
-                                                              mode: '0644')
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging/sample.tar.gz http://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
+      should contain_file('/opt/staging/sample.tar.gz').with(owner: 'root',
+                                                             group: 'root',
+                                                             mode: '0644')
     end
   end
 
@@ -103,14 +108,15 @@ describe 'staging::file', type: :define do
       }
     end
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl -b -f -L -o /opt/staging//sample.tar.gz http://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl -b -f -L -o /opt/staging/sample.tar.gz http://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
     end
   end
 
@@ -124,6 +130,7 @@ describe 'staging::file', type: :define do
         try_sleep: '6'
       }
     end
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
       should contain_exec('/usr/local/sample.tar.gz').with(command: 'curl  -f -L -o /usr/local/sample.tar.gz http://webserver/sample.tar.gz',
@@ -140,14 +147,15 @@ describe 'staging::file', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { source: 'https://webserver/sample.tar.gz' } }
 
+    it { is_expected.to compile.with_all_deps }
     it { should contain_file('/opt/staging') }
     it do
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging//sample.tar.gz https://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging/sample.tar.gz https://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
     end
   end
 
@@ -160,14 +168,15 @@ describe 'staging::file', type: :define do
         password: 'puppet'
       }
     end
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging//sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl  -f -L -o /opt/staging/sample.tar.gz -u puppet:puppet https://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
     end
   end
 
@@ -175,14 +184,15 @@ describe 'staging::file', type: :define do
     let(:title) { 'sample.tar.gz' }
     let(:params) { { source: 'ftp://webserver/sample.tar.gz' } }
 
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -o /opt/staging//sample.tar.gz ftp://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl  -o /opt/staging/sample.tar.gz ftp://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
     end
   end
 
@@ -195,14 +205,15 @@ describe 'staging::file', type: :define do
         password: 'puppet'
       }
     end
+    it { is_expected.to compile.with_all_deps }
     it do
       should contain_file('/opt/staging')
-      should contain_exec('/opt/staging//sample.tar.gz').with(command: 'curl  -o /opt/staging//sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',
-                                                              path: '/usr/local/bin:/usr/bin:/bin',
-                                                              environment: nil,
-                                                              cwd: '/opt/staging/',
-                                                              creates: '/opt/staging//sample.tar.gz',
-                                                              logoutput: 'on_failure')
+      should contain_exec('/opt/staging/sample.tar.gz').with(command: 'curl  -o /opt/staging/sample.tar.gz -u puppet:puppet ftp://webserver/sample.tar.gz',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             environment: nil,
+                                                             cwd: '/opt/staging',
+                                                             creates: '/opt/staging/sample.tar.gz',
+                                                             logoutput: 'on_failure')
     end
   end
 end

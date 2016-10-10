@@ -35,7 +35,7 @@ define staging::file (
     $target_file = $target
     $staging_dir = staging_parse($target, 'parent')
   } else {
-    $staging_dir = "${staging::path}/${subdir}"
+    $staging_dir = regsubst("${staging::_path}/${subdir}", '/$', '') # Strip off trailing slashes
     $target_file = "${staging_dir}/${name}"
 
     if ! defined(File[$staging_dir]) {
