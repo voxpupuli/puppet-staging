@@ -15,6 +15,7 @@ describe 'staging::file', type: :define do
 
     it { is_expected.to compile.with_all_deps }
     it do
+      should compile
       should contain_file('/opt/staging')
       should contain_file('/opt/staging/sample.tar.gz')
       should_not contain_exec('/opt/staging/sample.tar.gz')
