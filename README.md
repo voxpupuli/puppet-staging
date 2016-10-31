@@ -1,9 +1,11 @@
 # Staging module for Puppet
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
-[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
-[![Puppet Forge score](https://img.shields.io/puppetforge/f/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-staging.png)](https://travis-ci.org/voxpupuli/puppet-staging)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-staging.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-staging)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-staging/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-staging)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
 
 Manages staging directory, along with download/extraction of compressed files.
 
