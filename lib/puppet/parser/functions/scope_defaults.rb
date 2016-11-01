@@ -4,8 +4,10 @@ Determine if specified resource defaults have a attribute defined in
 current scope.
 EOS
              ) do |arguments|
-    raise(Puppet::ParseError, 'scope_defaults(): Wrong number of arguments ' \
-      "given (#{arguments.size} for 2)") if arguments.size != 2
+    if arguments.size != 2
+      raise(Puppet::ParseError, 'scope_defaults(): Wrong number of arguments ' \
+        "given (#{arguments.size} for 2)")
+    end
 
     # auto capitalize puppet resource for lookup:
     res_type = arguments[0].split('::').map(&:capitalize).join('::')

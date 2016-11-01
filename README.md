@@ -1,15 +1,18 @@
-# Puppet Staging
+# Staging module for Puppet
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
-[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
-[![Puppet Forge score](https://img.shields.io/puppetforge/f/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-staging.png)](https://travis-ci.org/voxpupuli/puppet-staging)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-staging.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-staging)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-staging/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-staging)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/staging.svg)](https://forge.puppetlabs.com/puppet/staging)
 
 Manages staging directory, along with download/extraction of compressed files.
 
 ## Usage
 
 Specify a different default staging path (must be declared before using resource):
+
 ```puppet
 class { 'staging':
   path  => '/var/staging',
@@ -19,6 +22,7 @@ class { 'staging':
 ```
 
 Staging files from various sources:
+
 ```puppet
 staging::file { 'sample':
   source => 'puppet://modules/staging/sample',
@@ -30,6 +34,7 @@ staging::file { 'apache-tomcat-6.0.35':
 ```
 
 Staging and extracting files:
+
 ```puppet
 staging::file { 'sample.tar.gz':
   source => 'puppet:///modules/staging/sample.tar.gz'
@@ -43,6 +48,7 @@ staging::extract { 'sample.tar.gz':
 ```
 
 Deploying a file (combining staging and extract):
+
 ```puppet
 staging::deploy { 'sample.tar.gz':
   source => 'puppet:///modules/staging/sample.tar.gz',
