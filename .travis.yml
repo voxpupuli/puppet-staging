@@ -23,24 +23,22 @@ matrix:
     env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
   - rvm: 2.1.9
     env: PUPPET_VERSION="~> 4.0" CHECK=test
-  - rvm: 2.2.5
+  - rvm: 2.2.6
     env: PUPPET_VERSION="~> 4.0" CHECK=test
-  - rvm: 2.3.1
+  - rvm: 2.3.3
     env: PUPPET_VERSION="~> 4.0" CHECK=build DEPLOY_TO_FORGE=yes
-  - rvm: 2.3.1
+  - rvm: 2.3.3
     env: PUPPET_VERSION="~> 4.0" CHECK=rubocop
-  - rvm: 2.3.1
+  - rvm: 2.3.3
     env: PUPPET_VERSION="~> 4.0" CHECK=test
-  - rvm: 2.4.0-preview1
+  - rvm: 2.4.0-preview3
     env: PUPPET_VERSION="~> 4.0" CHECK=test
   allow_failures:
-    - rvm: 2.4.0-preview1
+    - rvm: 2.4.0-preview3
 notifications:
   email: false
 deploy:
   provider: puppetforge
-  deploy:
-    branch: ha-bug-puppet-forge
   user: puppet
   password:
     secure: "Gi2pSwUXV0VzdVVfxAW8/9/2/ZYUuOaFxr7klw2lDh1/+pbvINyn3m6121AVY8Z3W3wfJGqnnsIHC/3pS1671xsVES9VPEXqc5v93P+VHmtxEBCFakEBkQ6B+EqCiB5w58L6At+ZM85ejcdTPy3Pg4gNEaJc5rKAHZkq3FMamzA="
