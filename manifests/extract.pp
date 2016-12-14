@@ -94,7 +94,7 @@ define staging::extract (
 
     /.zip$/: {
       if $use_7zip {
-        $command = "7za x ${source_path} ${unzip_opts}"
+        $command = "7z x ${source_path} ${unzip_opts}"
       } else {
         $command = "unzip ${unzip_opts} ${source_path}"
       }
