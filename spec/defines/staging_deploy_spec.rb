@@ -103,6 +103,26 @@ describe 'staging::deploy', type: :define do
     end
   end
 
+  describe 'when deploying zip file with 7zip and unzip_opts' do
+    let(:title) { 'sample.zip' }
+    let(:params) do
+      { source: 'puppet:///modules/staging/sample.zip',
+        target: '/usr/local',
+        use_7zip: true,
+        unzip_opts: '-r' }
+    end
+
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_file('/opt/staging') }
+    it { is_expected.to contain_file('/opt/staging/sample.zip') }
+    it do
+      is_expected.to contain_exec('extract sample.zip').with(command: '7z x /opt/staging/sample.zip -r',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             cwd: '/usr/local',
+                                                             creates: '/usr/local/sample')
+    end
+  end
+
   describe 'when deploying tar file with untar_opts' do
     let(:title) { 'sample.tar' }
     let(:params) do

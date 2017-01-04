@@ -9,8 +9,9 @@ define staging::deploy (
   $environment  = undef, #: environment variable for settings such as http_proxy
   $novalidate   = false, #: Whether to bypass https validation - powershell only
   $strip        = undef, #: extract file with the --strip=X option. Only works with GNU tar.
-  $untar_opts   = '',    #: additional options to pass to tar.
+  $use_7zip     = false, #: alternative to unzip command on Windows
   $unzip_opts   = '',    #: additional options to pass the unzip command.
+  $untar_opts   = '',    #: additional options to pass to tar.
   $timeout      = undef, #: the time to wait for the file transfer to complete
   $user         = undef, #: extract file as this user
   $group        = undef, #: extract group as this group
@@ -51,6 +52,7 @@ define staging::deploy (
     group       => $group,
     environment => $environment,
     strip       => $strip,
+    use_7zip    => $use_7zip,
     unzip_opts  => $unzip_opts,
     untar_opts  => $untar_opts,
     subdir      => $caller_module_name,

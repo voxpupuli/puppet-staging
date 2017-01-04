@@ -124,6 +124,45 @@ describe 'staging::extract', type: :define do
     end
   end
 
+  describe 'when deploying zip with 7zip' do
+    let(:title) { 'sample.zip' }
+    let(:params) do
+      {
+        target: '/opt',
+        use_7zip: true
+      }
+    end
+
+    it { is_expected.to compile.with_all_deps }
+    it do
+      is_expected.to contain_file('/opt/staging')
+      is_expected.to contain_exec('extract sample.zip').with(command: '7z x /opt/staging/sample.zip ',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             cwd: '/opt',
+                                                             creates: '/opt/sample')
+    end
+  end
+
+  describe 'when deploying zip with 7zip and unzip_opts' do
+    let(:title) { 'sample.zip' }
+    let(:params) do
+      {
+        target: '/opt',
+        use_7zip: true,
+        unzip_opts: '-r'
+      }
+    end
+
+    it { is_expected.to compile.with_all_deps }
+    it do
+      is_expected.to contain_file('/opt/staging')
+      is_expected.to contain_exec('extract sample.zip').with(command: '7z x /opt/staging/sample.zip -r',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             cwd: '/opt',
+                                                             creates: '/opt/sample')
+    end
+  end
+
   describe 'when deploying war' do
     let(:title) { 'sample.war' }
     let(:params) { { target: '/opt' } }
