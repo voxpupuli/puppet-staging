@@ -7,6 +7,7 @@ define staging::deploy (
   $certificate  = undef, #: https certifcate file
   $password     = undef, #: https or ftp user password or https certificate password
   $environment  = undef, #: environment variable for settings such as http_proxy
+  $novalidate   = false, #: Whether to bypass https validation - powershell only
   $strip        = undef, #: extract file with the --strip=X option. Only works with GNU tar.
   $unzip_opts   = '',    #: additional options to pass the unzip command.
   $timeout      = undef, #: the time to wait for the file transfer to complete
@@ -37,6 +38,7 @@ define staging::deploy (
     certificate => $certificate,
     password    => $password,
     environment => $environment,
+    novalidate  => $novalidate,
     subdir      => $caller_module_name,
     timeout     => $timeout,
   }
