@@ -10,6 +10,7 @@ define staging::extract (
   $environment = undef, #: environment variables.
   $strip       = undef, #: extract file with the --strip=X option. Only works with GNU tar.
   $unzip_opts  = '',    #: additional options to pass the unzip command.
+  $unzip_ps    = false, #: use powershell to unzip
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
 
@@ -96,7 +97,15 @@ define staging::extract (
     }
 
     /.zip$/: {
-      $command = "unzip ${unzip_opts} ${source_path}"
+      if $::osfamily == 'windows' and $unzip_ps {
+        exec { "unzip ${source_path} to ${target}":
+          command  => "\$sh=New-Object -COM Shell.Application;\$sh.namespace((Convert-Path '${target}')).Copyhere(\$sh.namespace((Convert-Path '${source_path}')).items(), 16)",
+          creates  => $creates,
+          provider => powershell,
+        }
+      } else {
+        $command = "unzip ${unzip_opts} ${source_path}"
+      }
     }
 
     /(.war|.jar)$/: {
