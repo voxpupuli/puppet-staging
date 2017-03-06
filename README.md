@@ -9,6 +9,11 @@
 
 Manages staging directory, along with download/extraction of compressed files.
 
+**Use of this module is deprecated.**
+New features are unlikely to be added.
+Please consider using [puppet-archive](https://github.com/voxpupuli/puppet-archive#migrating-from-puppet-staging)
+instead.
+
 ## Usage
 
 Specify a different default staging path (must be declared before using resource):
