@@ -10,7 +10,7 @@
 #   resource as necessary.
 #
 define staging::file (
-  $source,              #: the source file location, supports local files, puppet://, http://, https://, ftp://, s3://
+  $source,              #: the source file location, supports local files, puppet:///, http://, https://, ftp://, s3://
   $target      = undef, #: the target file location, if unspecified ${staging::path}/${subdir}/${name}
   $username    = undef, #: https or ftp username
   $certificate = undef, #: https certificate file
