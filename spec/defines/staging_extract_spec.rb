@@ -75,6 +75,7 @@ describe 'staging::extract', type: :define do
         unzip_opts: '-o -f'
       }
     end
+
     it { is_expected.to compile.with_all_deps }
     it do
       is_expected.to contain_file('/opt/staging')
@@ -107,6 +108,7 @@ describe 'staging::extract', type: :define do
   describe 'when deploying war' do
     let(:title) { 'sample.war' }
     let(:params) { { target: '/opt' } }
+
     it { is_expected.to compile.with_all_deps }
     it do
       is_expected.to contain_file('/opt/staging')
@@ -126,6 +128,7 @@ describe 'staging::extract', type: :define do
         unzip_opts: '-o -f'
       }
     end
+
     it { is_expected.to compile.with_all_deps }
     it do
       is_expected.to contain_file('/opt/staging')
@@ -161,6 +164,7 @@ describe 'staging::extract', type: :define do
     let(:params) do
       { target: '/opt' }
     end
+
     it 'fails' do
       is_expected.to compile.and_raise_error(%r{The .deb filetype is only supported on Debian family systems.})
     end
