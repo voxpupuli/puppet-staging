@@ -1,7 +1,7 @@
 # The define resource extracts compressed file to a staging location.
 define staging::deploy (
   $target,               #: the target extraction directory
-  $source       = undef, #: the source file location, supports local files, puppet://, http://, https://, ftp://
+  $source       = undef, #: the source file location, supports local files, puppet:///, http://, https://, ftp://
   $staging_path = undef, #: the staging location for compressed file. defaults to ${staging::path}/${caller_module_name}
   $username     = undef, #: https or ftp username
   $certificate  = undef, #: https certifcate file

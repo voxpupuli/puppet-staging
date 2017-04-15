@@ -30,7 +30,7 @@ Staging files from various sources:
 
 ```puppet
 staging::file { 'sample':
-  source => 'puppet://modules/staging/sample',
+  source => 'puppet:///modules/staging/sample',
 }
 
 staging::file { 'apache-tomcat-6.0.35':
