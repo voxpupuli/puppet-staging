@@ -53,6 +53,21 @@ describe 'staging::extract', type: :define do
     end
   end
 
+  describe 'when deploying tbz2' do
+    let(:title) { 'sample.tbz2' }
+    let(:params) { { :target => '/opt' } }
+
+    it {
+      should contain_file('/opt/staging')
+      should contain_exec('extract sample.tbz2').with({
+        :command => 'tar xjf /opt/staging//sample.tbz2',
+        :path    => '/usr/local/bin:/usr/bin:/bin',
+        :cwd     => '/opt',
+        :creates => '/opt/sample'
+      })
+    }
+  end
+
   describe 'when deploying zip' do
     let(:title) { 'sample.zip' }
     let(:params) { { target: '/opt' } }
