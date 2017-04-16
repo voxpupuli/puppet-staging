@@ -1,8 +1,8 @@
 module Puppet::Parser::Functions
   newfunction(:scope_defaults, type: :rvalue, doc: <<-EOS
-Determine if specified resource defaults have a attribute defined in
-current scope.
-EOS
+    Determine if specified resource defaults have a attribute defined in
+    current scope.
+  EOS
              ) do |arguments|
     if arguments.size != 2
       raise(Puppet::ParseError, 'scope_defaults(): Wrong number of arguments ' \

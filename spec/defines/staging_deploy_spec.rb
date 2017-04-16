@@ -91,6 +91,7 @@ describe 'staging::deploy', type: :define do
         target: '/usr/local',
         unzip_opts: '-o -f' }
     end
+
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/opt/staging') }
     it { is_expected.to contain_file('/opt/staging/sample.zip') }
