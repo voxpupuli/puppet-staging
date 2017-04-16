@@ -49,11 +49,11 @@ define staging::file (
     path        => $staging::exec_path,
     environment => $environment,
     cwd         => $staging_dir,
-    creates     => $target_file,
     timeout     => $timeout,
     try_sleep   => $try_sleep,
     tries       => $tries,
     logoutput   => on_failure,
+    unless      => "/bin/test -s ${target_file}",
   }
 
   case $::staging_http_get {
