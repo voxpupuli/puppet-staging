@@ -8,6 +8,7 @@ define staging::deploy (
   $password     = undef, #: https or ftp user password or https certificate password
   $environment  = undef, #: environment variable for settings such as http_proxy
   $strip        = undef, #: extract file with the --strip=X option. Only works with GNU tar.
+  $use_7zip     = false, #: alternative to unzip command on Windows
   $unzip_opts   = '',    #: additional options to pass the unzip command.
   $timeout      = undef, #: the time to wait for the file transfer to complete
   $user         = undef, #: extract file as this user
@@ -48,6 +49,7 @@ define staging::deploy (
     group       => $group,
     environment => $environment,
     strip       => $strip,
+    use_7zip    => $use_7zip,
     unzip_opts  => $unzip_opts,
     subdir      => $caller_module_name,
     creates     => $creates,
