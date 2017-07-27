@@ -40,7 +40,10 @@ define staging::file (
 
     if ! defined(File[$staging_dir]) {
       file { $staging_dir:
-        ensure=>directory,
+        ensure => 'directory',
+        owner  => $staging::owner,
+        group  => $staging::group,
+        mode   => $staging::mode,
       }
     }
   }
