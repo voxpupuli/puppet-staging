@@ -1,4 +1,3 @@
-#!/usr/bin/env rspec
 require 'spec_helper'
 
 describe 'the scope_defaults function' do
