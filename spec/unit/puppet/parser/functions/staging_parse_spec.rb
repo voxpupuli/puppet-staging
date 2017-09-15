@@ -1,3 +1,4 @@
+#!/usr/bin/env rspec
 require 'spec_helper'
 
 describe 'the staging parser function' do
