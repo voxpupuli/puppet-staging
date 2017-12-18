@@ -104,22 +104,22 @@ describe 'staging::deploy', type: :define do
   end
 
   describe 'when deploying tar file with untar_opts' do
-      let (:title) { 'sample.tar' }
-      let (:params) do
-        { source: 'puppet:///modules/staging/sample.tar',
-          target: '/usr/local',
-          untar_opts: '--exclude=conf/' }
-      end
+    let (:title) { 'sample.tar' }
+    let (:params) do
+      { source: 'puppet:///modules/staging/sample.tar',
+        target: '/usr/local',
+        untar_opts: '--exclude=conf/' }
+    end
 
-      it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_file('/opt/staging') }
-      it { is_expected.to contain_file('/opt/staging/sample.tar') }
-      it do
-          is_expected.to contain_exec('extract sample.tar').with(command: 'tar xf /opt/staging/sample.tar --exclude=conf/',
-                                                                 path: '/usr/local/bin:/usr/bin:/bin',
-                                                                 cwd: '/usr/local',
-                                                                 creates: '/usr/local/sample')
-      end
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_file('/opt/staging') }
+    it { is_expected.to contain_file('/opt/staging/sample.tar') }
+    it do
+      is_expected.to contain_exec('extract sample.tar').with(command: 'tar xf /opt/staging/sample.tar --exclude=conf/',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             cwd: '/usr/local',
+                                                             creates: '/usr/local/sample')
+    end
   end
 
 end
