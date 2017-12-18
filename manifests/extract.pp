@@ -92,7 +92,7 @@ define staging::extract (
 
     /(.tgz|.tar.gz)$/: {
       if $::osfamily == 'Solaris' {
-        $command = "gunzip -dc < ${source_path} | tar xf - "
+        $command = "gunzip -dc < ${source_path} | tar xf - ${untar_opts_real}"
       } else {
         $command = "tar xzf ${source_path}${strip_opt}${untar_opts_real}"
       }
