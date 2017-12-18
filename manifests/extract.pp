@@ -9,6 +9,7 @@ define staging::extract (
   $group       = undef, #: extract file as this group.
   $environment = undef, #: environment variables.
   $strip       = undef, #: extract file with the --strip=X option. Only works with GNU tar.
+  $untar_opts  = '',    #: additional options to pass to tar.
   $unzip_opts  = '',    #: additional options to pass the unzip command.
   $subdir      = $caller_module_name #: subdir per module in staging directory.
 ) {
@@ -78,21 +79,27 @@ define staging::extract (
     $strip_opt = ''
   }
 
+  if $untar_opts != '' {
+      $untar_opts_real = " ${untar_opts}"
+  } else {
+      $untar_opts_real = ''
+  }
+
   case $name {
     /.tar$/: {
-      $command = "tar xf ${source_path}${strip_opt}"
+      $command = "tar xf ${source_path}${strip_opt}${untar_opts_real}"
     }
 
     /(.tgz|.tar.gz)$/: {
       if $::osfamily == 'Solaris' {
         $command = "gunzip -dc < ${source_path} | tar xf - "
       } else {
-        $command = "tar xzf ${source_path}${strip_opt}"
+        $command = "tar xzf ${source_path}${strip_opt}${untar_opts_real}"
       }
     }
 
     /(.tbz2|.tar.bz2)$/: {
-      $command = "tar xjf ${source_path}${strip_opt}"
+      $command = "tar xjf ${source_path}${strip_opt}${untar_opts_real}"
     }
 
     /.zip$/: {

@@ -86,6 +86,25 @@ describe 'staging::extract', type: :define do
     end
   end
 
+  describe 'when deploying zip with untar_opts' do
+    let(:title) { 'sample.tar' }
+    let(:params) do
+      {
+        target: '/opt',
+        untar_opts: '--exclude=conf/'
+      }
+    end
+
+    it { is_expected.to compile.with_all_deps }
+    it do
+      is_expected.to contain_file('/opt/staging')
+      is_expected.to contain_exec('extract sample.tar').with(command: 'tar xf /opt/staging/sample.tar --exclude=conf/',
+                                                             path: '/usr/local/bin:/usr/bin:/bin',
+                                                             cwd: '/opt',
+                                                             creates: '/opt/sample')
+    end
+  end
+
   describe 'when deploying zip with strip (noop)' do
     let(:title) { 'sample.zip' }
     let(:params) do
