@@ -104,8 +104,8 @@ describe 'staging::deploy', type: :define do
   end
 
   describe 'when deploying tar file with untar_opts' do
-    let (:title) { 'sample.tar' }
-    let (:params) do
+    let(:title) { 'sample.tar' }
+    let(:params) do
       { source: 'puppet:///modules/staging/sample.tar',
         target: '/usr/local',
         untar_opts: '--exclude=conf/' }
@@ -121,5 +121,4 @@ describe 'staging::deploy', type: :define do
                                                              creates: '/usr/local/sample')
     end
   end
-
 end
