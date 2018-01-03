@@ -4,8 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.0.0](https://github.com/voxpupuli/puppet-staging/tree/v3.0.0) (2017-11-13)
+## [v3.1.0](https://github.com/voxpupuli/puppet-staging/tree/v3.1.0) (2018-01-03)
+[Full Changelog](https://github.com/voxpupuli/puppet-staging/compare/v3.0.0...v3.1.0)
 
+**Implemented enhancements:**
+
+- Add untar\_opts parameter for extract [\#151](https://github.com/voxpupuli/puppet-staging/pull/151) ([ardichoke](https://github.com/ardichoke))
+- declare compatible with Puppet 5.x [\#150](https://github.com/voxpupuli/puppet-staging/pull/150) ([mmoll](https://github.com/mmoll))
+
+**Closed issues:**
+
+- Add an opts parameter for tar [\#142](https://github.com/voxpupuli/puppet-staging/issues/142)
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-staging/tree/v3.0.0) (2017-11-13)
 [Full Changelog](https://github.com/voxpupuli/puppet-staging/compare/v2.2.0...v3.0.0)
 
 **Implemented enhancements:**
