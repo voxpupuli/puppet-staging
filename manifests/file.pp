@@ -24,7 +24,8 @@ define staging::file (
   $owner       = undef, #: file owner in the local filesystem for the target
   $group       = undef, #: file group in the local filesystem for the target
   $mode        = undef, #: file mode in the local filesystem for the target
-  $subdir      = $caller_module_name
+  $subdir      = $caller_module_name,
+  $novalidate  = false #: Whether to bypass https validation - powershell only
 ) {
 
   include ::staging
@@ -78,8 +79,9 @@ define staging::file (
     }
     'powershell':{
       $http_get        = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.DownloadFile('${source}','${target_file}')\""
-      $ftp_get         = $http_get
       $http_get_passwd = "powershell.exe -Command \"\$wc = New-Object System.Net.WebClient;\$wc.Credentials = New-Object System.Net.NetworkCredential('${username}','${password}');\$wc.DownloadFile('${source}','${target_file}')\""
+      $http_get_noval  = "powershell.exe -Command \"[System.Net.ServicePointManager]::ServerCertificateValidationCallback={\$true};\$wc = New-Object System.Net.WebClient;\$wc.DownloadFile('${source}','${target_file}');[System.Net.ServicePointManager]::ServerCertificateValidationCallback=\$null\""
+      $ftp_get         = $http_get
       $ftp_get_passwd  = $http_get_passwd
     }
   }
@@ -133,6 +135,7 @@ define staging::file (
     /^https:\/\//: {
       if $username       { $command = $http_get_passwd }
       elsif $certificate { $command = $http_get_cert   }
+      elsif $novalidate  { $command = $http_get_noval  }
       else               { $command = $http_get        }
       exec { $target_file:
         command => $command,
