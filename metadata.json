@@ -37,7 +37,6 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7",
         "8"
       ]
     },
@@ -103,7 +102,5 @@
   "source": "https://github.com/voxpupuli/puppet-staging",
   "project_page": "https://github.com/voxpupuli/puppet-staging",
   "issues_url": "https://github.com/voxpupuli/puppet-staging/issues",
-  "dependencies": [
-
-  ]
+  "dependencies": []
 }
