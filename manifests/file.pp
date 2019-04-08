@@ -28,7 +28,7 @@ define staging::file (
   $novalidate  = false #: Whether to bypass https validation - powershell only
 ) {
 
-  include ::staging
+  include staging
 
   $quoted_source = shellquote($source)
 
