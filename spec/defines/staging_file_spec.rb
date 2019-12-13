@@ -3,7 +3,7 @@ describe 'staging::file', type: :define do
   # forcing a more sane caller_module_name to match real usage.
   let(:facts) do
     {
-      osfamily: 'RedHat',
+      os: { family: 'RedHat' },
       staging_http_get: 'curl',
       puppetversion: Puppet.version
     }

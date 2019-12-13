@@ -1,6 +1,6 @@
 # OS specific parameters
 class staging::params {
-  case $::osfamily {
+  case $facts['os']['family'] {
     default: {
       $path      = '/opt/staging'
       $owner     = '0'

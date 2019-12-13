@@ -3,7 +3,7 @@ describe 'staging::extract', type: :define do
   # forcing a more sane caller_module_name to match real usage.
   let(:facts) do
     {
-      osfamily: 'RedHat',
+      os: { family: 'RedHat' },
       path: '/usr/local/bin:/usr/bin:/bin'
     }
   end
@@ -200,7 +200,7 @@ describe 'staging::extract', type: :define do
   describe 'when deploying deb on a Debian family system' do
     let(:facts) do
       {
-        osfamily: 'Debian',
+        os: { family: 'Debian' },
         path: '/usr/local/bin:/usr/bin:/bin'
       }
     end
