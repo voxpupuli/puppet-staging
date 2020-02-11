@@ -70,7 +70,7 @@ define staging::extract (
   }
 
   if $strip {
-    if $::osfamily == 'Solaris' or $name !~ /(.tar|.tgz|.tar.gz|.tbz2|.tar.bz2)$/ {
+    if $facts['os']['family'] == 'Solaris' or $name !~ /(.tar|.tgz|.tar.gz|.tbz2|.tar.bz2)$/ {
       warning('strip is only supported with GNU tar, ignoring the parameter')
       $strip_opt = ''
     } else {
@@ -92,7 +92,7 @@ define staging::extract (
     }
 
     /(.tgz|.tar.gz)$/: {
-      if $::osfamily == 'Solaris' {
+      if $facts['os']['family'] == 'Solaris' {
         $command = "gunzip -dc < ${source_path} | tar xf - ${untar_opts_real}"
       } else {
         $command = "tar xzf ${source_path}${strip_opt}${untar_opts_real}"
@@ -116,7 +116,7 @@ define staging::extract (
     }
 
     /.deb$/: {
-      if $::osfamily == 'Debian' {
+      if $facts['os']['family'] == 'Debian' {
         $command = "dpkg --extract ${source_path} ."
       } else {
         fail('The .deb filetype is only supported on Debian family systems.')

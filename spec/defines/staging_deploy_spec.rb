@@ -3,7 +3,7 @@ describe 'staging::deploy', type: :define do
   let(:facts) do
     {
       caller_module_name: '',
-      osfamily: 'RedHat',
+      os: { family: 'RedHat' },
       staging_http_get: 'curl',
       path: '/usr/local/bin:/usr/bin:/bin'
     }
